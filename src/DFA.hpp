@@ -34,6 +34,13 @@ public:
   typedef StatesType              states_type;                                             ///< The state type
   typedef typename Alphabet::character_type alphabet_char_type;                            ///< The alphabet char type
 
+private :
+
+  // - Internal types
+
+  typedef std::pair<states_type, alphabet_char_type> delta_state_transition;              ///< The transition (crt state, character)
+  typedef std::map<delta_state_transition, states_type> delta_transition_states_mapping;  ///< The actual list of transitions and the delta function
+
 public :
 
   /// Default ctor
@@ -147,22 +154,23 @@ public :
     if (sequence_size == 0)
       return Messages::NULL_SEQUENCE_SIZE;
 
-    alphabet_char_type crt_elem;
     delta_state_transition crt_transition;
     delta_transition_states_mapping::const_iterator my_crt_position(delta_states_mapping_qd_.begin());
     delta_transition_states_mapping::const_iterator states_mapping_end(delta_states_mapping_qd_.end());
     states_type new_state(initial_state_q0_);
 
     crt_transition.first = initial_state_q0_;
-    crt_transition.second = *crt_elem;                                    // the first stage is q0, first_char
+    crt_transition.second = crt_sequence[0];                              // the first stage is q0, first_char
 
-    for (std::size_t i = 1; i < sequence_size; ++i)
+    std::size_t i = 0;
+    while (i < sequence_size)
     {
+      ++i;
+
       my_crt_position = delta_states_mapping_qd_.find(crt_transition);    // find the current state from the crt_transition
       if (my_crt_position != states_mapping_end)
       {
         new_state = my_crt_position->second;                              // this is the new state -> switch to the new state
-
         crt_transition.first  = new_state;
         crt_transition.second = *(crt_sequence + i);                      // go to the next input from the sequence
       }
@@ -178,6 +186,12 @@ public :
   }
 
   // - Mutating methods
+
+  /// Set the value of the initial state q0
+  void SetInitialState(states_type my_initial_state)
+  {
+    initial_state_q0_ = my_initial_state;
+  }
 
   /// Adds a final state
   bool AddFinalState(states_type my_final_state)
@@ -210,16 +224,11 @@ public :
   bool AddTransition(states_type old_state, alphabet_char_type character, states_type new_state)
   {
     delta_state_transition crt_transition(old_state, character);
-    delta_transition_states_mapping._Pairib ret = delta_states_mapping_qd_.insert(delta_transition_states_mapping::value_type(crt_transition, new_state));
+    delta_transition_states_mapping::_Pairib ret = delta_states_mapping_qd_.insert(delta_transition_states_mapping::value_type(crt_transition, new_state));
     return ret.second;
   }
 
 private :
-
-  // - Internal types
-
-  typedef std::pair<states_type, alphabet_char_type> delta_state_transition;              ///< The transition (crt state, character)
-  typedef std::map<delta_state_transition, states_type> delta_transition_states_mapping;  ///< The actual list of transitions and the delta function
 
   // - Members
 
