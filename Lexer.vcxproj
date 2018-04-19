@@ -143,6 +143,7 @@
     <ClInclude Include="src\DFA.hpp" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="token.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Lexer.cpp" />

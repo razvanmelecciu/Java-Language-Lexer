@@ -17,7 +17,7 @@ DFA_START
 /// A simple class which models a deterministic finite state automaton [Q, V, d, qo, F]
 /// where Q - list of states, V - alphabet used, d - delta transition function d: Q x V -> Q,
 ///       q0 - initial state, F - list of final states
-/// Template params: Alphabet used, must define char_type
+/// Template params: char_type (char, w_char etc.)
 /// The states type: unsigned int, short etc.
 /////////////////////////////////////////////////////////////////////////
 template <class char_type = char,
