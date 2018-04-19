@@ -20,8 +20,8 @@ DFA_START
 /// Template params: Alphabet used, must define char_type
 /// The states type: unsigned int, short etc.
 /////////////////////////////////////////////////////////////////////////
-template <class Alphabet = tools::Alphabet<>,
-          class StatesType = unsigned int>
+template <class char_type = char,
+          class states = unsigned int>
 class DFA
 {
   // - Public types
@@ -29,10 +29,10 @@ class DFA
 public:
 
   enum class Messages : unsigned char { RECOGNIZED, UNRECOGNIZED, INVALID_ALPHABET,
-                                        NULL_SEQUENCE_SIZE,
-                                        NO_STATES, NO_FINAL_STATES, INVALID_STATE };       ///< Errors
-  typedef StatesType              states_type;                                             ///< The state type
-  typedef typename Alphabet::character_type alphabet_char_type;                            ///< The alphabet char type
+                                        NULL_SEQUENCE_SIZE, NO_STATE_FOR_CHAR,
+                                        NO_STATES, NO_FINAL_STATES, INVALID_STATE };  ///< Errors
+  typedef states states_type;                                                         ///< The state type
+  typedef char_type alphabet_char_type;                                               ///< The alphabet char type
 
 private :
 
@@ -44,7 +44,7 @@ private :
 public :
 
   /// Default ctor
-  explicit DFA(Alphabet* crt_alphabet_v = nullptr) : initial_state_q0_(0), alphabet_used_V(crt_alphabet_v)
+  DFA() : initial_state_q0_(0)
   {
   }
 
@@ -53,13 +53,6 @@ public :
                                initial_state_q0_(RHS_Object.initial_state_q0_),
                                delta_states_mapping_qd_(RHS_Object.delta_states_mapping_qd_)
   {
-    if (RHS_Object.alphabet_used_V)
-    {
-      if (alphabet_used_V)
-        delete alphabet_used_V;
-
-      alphabet_used_V = new Alphabet(*RHS_Object.alphabet_used_V);
-    }
   }
 
 #if defined MOVE_SEMANTICS
@@ -68,28 +61,12 @@ public :
                             initial_state_q0_(RHS_Object.initial_state_q0_),
                             delta_states_mapping_qd_(static_cast<delta_transition_states_mapping&&>(RHS_Object.delta_states_mapping_qd_))
   {
-    if (alphabet_used_V)
-    {
-      delete alphabet_used_V;
-      alphabet_used_V = nullptr;
-    }
-
-    if (RHS_Object.alphabet_used_V)
-    {
-      alphabet_used_V = RHS_Object.alphabet_used_V;
-      RHS_Object.alphabet_used_V = nullptr;                        // prevent the dtor's action
-    }
   }
 #endif
 
   /// Dtor
   ~DFA()
   {
-    if (alphabet_used_V)
-    {
-      delete alphabet_used_V;
-      alphabet_used_V = nullptr;
-    }
   }
 
   // - Operators
@@ -102,15 +79,6 @@ public :
       final_states_set_f_ = RHS_Object.final_states_set_f_;
       initial_state_q0_ = RHS_Object.initial_state_q0_;
       delta_states_mapping_qd_ = RHS_Object.delta_states_mapping_qd_;
-
-      // deep copy
-      if (RHS_Object.alphabet_used_V)
-      {
-        if (alphabet_used_V)
-          delete alphabet_used_V;
-
-        alphabet_used_V = new Alphabet(*RHS_Object.alphabet_used_V);
-      }
     }
 
     return *this;
@@ -125,15 +93,6 @@ public :
       final_states_set_f_ = RHS_Orphaned.final_states_set_f_;
       initial_state_q0_ = RHS_Orphaned.initial_state_q0_;
       delta_states_mapping_qd_ = RHS_Orphaned.delta_states_mapping_qd_;
-
-      if (RHS_Orphaned.alphabet_used_V)
-      {
-        if (alphabet_used_V)
-          delete alphabet_used_V;
-
-        alphabet_used_V = RHS_Orphaned.alphabet_used_V;
-        RHS_Orphaned.alphabet_used_V = nullptr;                            // prevent the dtor's action
-      }
     }
 
     return *this;
@@ -232,7 +191,6 @@ private :
 
   // - Members
 
-  Alphabet*                        alphabet_used_V;            ///< defines the vocabulary used (alphabet)
   std::set<states_type>            final_states_set_f_;        ///< the final states
   states_type                      initial_state_q0_;          ///< the initial state
   delta_transition_states_mapping  delta_states_mapping_qd_;   ///< a simple map that keeps the states and the delta function
