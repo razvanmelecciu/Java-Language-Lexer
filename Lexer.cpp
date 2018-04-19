@@ -11,7 +11,9 @@ int main(int argv, char** argc)
   namespace at = automaton::tools;
   namespace ad = automaton::dfa;
 
-  at::Alphabet<char, unsigned short, at::DefaultAlphabetSubset> myAlphabet(at::ALL);
+  at::Alphabet<char, at::DIGITS> myAlphabet;
+  myAlphabet.HasCharacterInSubset('1');
+
   ad::DFA<> myDFA;
 
   myDFA.SetInitialState(0);
