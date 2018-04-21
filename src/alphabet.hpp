@@ -2,9 +2,10 @@
 #define _alphabet_h
 
 #include "common.h"
+#include "tools.hpp"
 #include <set>
 
-AUTOMATON_START
+LEXER_START
 TOOLS_START
 
 /// Some basic categories for subsets for an alphabet
@@ -26,6 +27,8 @@ struct SubsetCheckType
   }
 };
 
+#pragma region SubsetCheckTypeSpecializations
+
 // - Partial specializations for char and wchar_t
 
 template <>
@@ -33,7 +36,7 @@ struct SubsetCheckType<char, ALL>
 {
   enum { subset = ALL };
 
-  static bool CheckSubset(char* sequence, std::size_t sequence_size)
+  static bool CheckSubset(const char* sequence, std::size_t sequence_size)
   {
     return true;
   }
@@ -44,7 +47,7 @@ struct SubsetCheckType<wchar_t, ALL>
 {
   enum { subset = ALL };
 
-  static bool CheckSubset(wchar_t* sequence, std::size_t sequence_size)
+  static bool CheckSubset(const wchar_t* sequence, std::size_t sequence_size)
   {
     return true;
   }
@@ -55,7 +58,7 @@ struct SubsetCheckType<char, UPR_LETTERS>
 {
   enum { subset = UPR_LETTERS };
 
-  static bool CheckSubset(char* sequence, std::size_t sequence_size)
+  static bool CheckSubset(const char* sequence, std::size_t sequence_size)
   {
     for (std::size_t i = 0; i < sequence_size; ++i)
     {
@@ -72,7 +75,7 @@ struct SubsetCheckType<wchar_t, UPR_LETTERS>
 {
   enum { subset = UPR_LETTERS };
 
-  static bool CheckSubset(wchar_t* sequence, std::size_t sequence_size)
+  static bool CheckSubset(const wchar_t* sequence, std::size_t sequence_size)
   {
     for (std::size_t i = 0; i < sequence_size; ++i)
     {
@@ -89,7 +92,7 @@ struct SubsetCheckType<char, LWR_LETTERS>
 {
   enum { subset = LWR_LETTERS };
 
-  static bool CheckSubset(char* sequence, std::size_t sequence_size)
+  static bool CheckSubset(const char* sequence, std::size_t sequence_size)
   {
     for (std::size_t i = 0; i < sequence_size; ++i)
     {
@@ -106,7 +109,7 @@ struct SubsetCheckType<wchar_t, LWR_LETTERS>
 {
   enum { subset = LWR_LETTERS };
 
-  static bool CheckSubset(wchar_t* sequence, std::size_t sequence_size)
+  static bool CheckSubset(const wchar_t* sequence, std::size_t sequence_size)
   {
     for (std::size_t i = 0; i < sequence_size; ++i)
     {
@@ -123,7 +126,7 @@ struct SubsetCheckType<char, DIGITS>
 {
   enum { subset = DIGITS };
 
-  static bool CheckSubset(char* sequence, std::size_t sequence_size)
+  static bool CheckSubset(const char* sequence, std::size_t sequence_size)
   {
     for (std::size_t i = 0; i < sequence_size; ++i)
     {
@@ -140,7 +143,7 @@ struct SubsetCheckType<wchar_t, DIGITS>
 {
   enum { subset = DIGITS };
 
-  static bool CheckSubset(wchar_t* sequence, std::size_t sequence_size)
+  static bool CheckSubset(const wchar_t* sequence, std::size_t sequence_size)
   {
     for (std::size_t i = 0; i < sequence_size; ++i)
     {
@@ -157,7 +160,7 @@ struct SubsetCheckType<char, MATH_OPS>
 {
   enum { subset = MATH_OPS };
 
-  static bool CheckSubset(char* sequence, std::size_t sequence_size)
+  static bool CheckSubset(const char* sequence, std::size_t sequence_size)
   {
     for (std::size_t i = 0; i < sequence_size; ++i)
     {
@@ -189,7 +192,7 @@ struct SubsetCheckType<wchar_t, MATH_OPS>
 {
   enum { subset = MATH_OPS };
 
-  static bool CheckSubset(wchar_t* sequence, std::size_t sequence_size)
+  static bool CheckSubset(const wchar_t* sequence, std::size_t sequence_size)
   {
     for (std::size_t i = 0; i < sequence_size; ++i)
     {
@@ -221,7 +224,7 @@ struct SubsetCheckType<char, BRACKETS>
 {
   enum { subset = BRACKETS };
 
-  static bool CheckSubset(char* sequence, std::size_t sequence_size)
+  static bool CheckSubset(const char* sequence, std::size_t sequence_size)
   {
     for (std::size_t i = 0; i < sequence_size; ++i)
     {
@@ -247,7 +250,7 @@ struct SubsetCheckType<wchar_t, BRACKETS>
 {
   enum { subset = BRACKETS };
 
-  static bool CheckSubset(wchar_t* sequence, std::size_t sequence_size)
+  static bool CheckSubset(const wchar_t* sequence, std::size_t sequence_size)
   {
     for (std::size_t i = 0; i < sequence_size; ++i)
     {
@@ -268,6 +271,8 @@ struct SubsetCheckType<wchar_t, BRACKETS>
   }
 };
 
+#pragma endregion
+
 ////////////////////////////////////////////////////////////////////////////////////////
 /// A basic generic alphabet class. The alphabet can contain basic subsets or can keep
 /// custom character types, besides the defined subsets. E.g. the alphabet can have only 
@@ -278,6 +283,8 @@ template <class char_type = char,
           class subset_chk_type = SubsetCheckType<char_type, subset>>
 class Alphabet
 {
+  static_assert(lexer::tools::is_character<char_type>::value, "The class template can only be instantiated with char types like char/wchar_t");
+
   // - Types
 
 public :
@@ -389,6 +396,6 @@ private :
 };
 
 TOOLS_END
-AUTOMATON_END
+LEXER_END
 
 #endif // _alphabet_h

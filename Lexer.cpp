@@ -2,35 +2,33 @@
 //
 
 #include "stdafx.h"
-#include "src/alphabet.hpp"
-#include "src/DFA.hpp"
+#include "src/alphabet_test.hpp"
+#include "src/DFA_test.hpp"
 #include <iostream>
+#include <string>
+#include "src/token.hpp"
+
+struct TestRunner
+{
+  static void RunTest(bool(*pFn)(), const std::string& description)
+  {
+    if (pFn() == true)
+      std::cout << description<< " " << "[Test passed]"<< std::endl;
+    else
+      std::cout << description << " " << "[Test failed]" << std::endl;
+  }
+};
 
 int main(int argv, char** argc)
 {
-  namespace at = automaton::tools;
-  namespace ad = automaton::dfa;
+  namespace ltt = lexer::tools::test;
+  namespace ldt = lexer::test;
 
-  at::Alphabet<char, at::DIGITS> myAlphabet;
-  myAlphabet.HasCharacterInSubset('1');
+  TestRunner::RunTest(&ltt::TestAlphabet::RunTest1, "Alphabet-Test1");
+  TestRunner::RunTest(&ltt::TestAlphabet::RunTest2, "Alphabet-Test2");
 
-  ad::DFA<> myDFA;
-
-  myDFA.SetInitialState(0);
-  myDFA.AddFinalState(0);
-  myDFA.AddTransition(0, '0', 0);
-  myDFA.AddTransition(0, '1', 1);
-  myDFA.AddTransition(1, '1', 0);
-  myDFA.AddTransition(1, '0', 2);
-  myDFA.AddTransition(2, '0', 1);
-  myDFA.AddTransition(2, '1', 2);
-
-  ad::DFA<>::Messages ret = myDFA.Accepts("01", 2);
-  
-  if (ret == ad::DFA<>::Messages::RECOGNIZED)
-    std::cout << "Accepted";
-  else
-    std::cout << "Not accepted";
+  TestRunner::RunTest(&ldt::TestDFA::RunTest1, "DFA-Test1");
+  TestRunner::RunTest(&ldt::TestDFA::RunTest2, "DFA-Test2");
 
   char x;
   std::cin>>x;

@@ -10,8 +10,7 @@
 #include <set>
 #include <map>
 
-AUTOMATON_START
-DFA_START
+LEXER_START
 
 /////////////////////////////////////////////////////////////////////////
 /// A simple class which models a deterministic finite state automaton [Q, V, d, qo, F]
@@ -24,6 +23,8 @@ template <class char_type = char,
           class states = unsigned int>
 class DFA
 {
+  static_assert(lexer::tools::is_character<char_type>::value, "The class template can only be instantiated with char types like char/wchar_t");
+
   // - Public types
 
 public:
@@ -196,8 +197,7 @@ private :
   delta_transition_states_mapping  delta_states_mapping_qd_;   ///< a simple map that keeps the states and the delta function
 };
 
-DFA_END
-AUTOMATON_END
+LEXER_END
 
 #endif // _DFA_h
 

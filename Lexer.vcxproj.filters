@@ -33,7 +33,19 @@
     <ClInclude Include="src\DFA.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="token.hpp">
+    <ClInclude Include="src\token.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tools.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\alphabet_test.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DFA_test.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lexer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

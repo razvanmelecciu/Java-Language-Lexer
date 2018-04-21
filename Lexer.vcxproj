@@ -139,11 +139,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\alphabet.hpp" />
+    <ClInclude Include="src\alphabet_test.hpp" />
     <ClInclude Include="src\common.h" />
     <ClInclude Include="src\DFA.hpp" />
+    <ClInclude Include="src\DFA_test.hpp" />
+    <ClInclude Include="src\lexer.hpp" />
+    <ClInclude Include="src\token.hpp" />
+    <ClInclude Include="src\tools.hpp" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="token.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Lexer.cpp" />
