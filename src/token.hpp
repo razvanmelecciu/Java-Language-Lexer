@@ -3,19 +3,11 @@
 
 #include "common.h"
 #include "tools.hpp"
+#include "grammar_symbols.hpp"
 #include <string>
 #include <set>
 
 LEXER_START
-
-enum TokenType : unsigned short
-{
-  KEYWORD = 0x01,
-  INTEGER_LITERAL, FLOATING_POINT_LITERAL, BOOLEAN_LITERAL,
-  CHARACTER_LITERAL, STRING_LITERAL, OPERATORS, WHITE_SPACE,
-  INLINE_COMMENT, MULTI_LINE_COMMENT, BRACKETS,
-  IDENTIFIER, SEPARATOR, PREDEFINED_TYPE
-};
 
 /////////////////////////////////////////////////////////////////////////
 /// A class for keeping track of all the string values of the various tokens 
@@ -110,7 +102,7 @@ public:
 public :
 
   /// Ctor
-  Token(TokenStringTable<char_type>& string_table, const string_type& value, TokenType token_type) : type_(token_type)
+  Token(TokenStringTable<char_type>& string_table, const string_type& value, SymbolCategory token_type) : type_(token_type)
   {
     table_item_ref_it = string_table.AddString(value);
   }
@@ -123,7 +115,7 @@ public :
   // - Accessors
 
   /// Get the current type
-  TokenType GetType() const
+  SymbolCategory GetType() const
   {
     return type_;
   }
@@ -144,7 +136,7 @@ public :
 
 private:
 
-  TokenType   type_;                                                         ///< The type for the stored token
+  SymbolCategory   type_;                                                         ///< The type for the stored token
   tbl_item_ref table_item_ref_it;  ///< The value of the string from the table stored as a const iterator
 };
 
