@@ -30,6 +30,11 @@ int main(int argv, char** argc)
   TestRunner::RunTest(&ldt::TestDFA::RunTest1, "DFA-Test1");
   TestRunner::RunTest(&ldt::TestDFA::RunTest2, "DFA-Test2");
 
+  lexer::TokenStringTable<> strtabl;
+  lexer::Token<> t1(strtabl, "val1", lexer::KEYWORD);
+  lexer::Token<> t2(strtabl, "val1", lexer::KEYWORD);
+  lexer::Token<> t3(strtabl, "val2", lexer::KEYWORD);
+
   char x;
   std::cin>>x;
 
