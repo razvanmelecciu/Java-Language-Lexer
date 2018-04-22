@@ -102,7 +102,7 @@ public:
 public :
 
   /// Ctor
-  Token(TokenStringTable<char_type>& string_table, const string_type& value, SymbolCategory token_type) : type_(token_type)
+  Token(TokenStringTable<char_type>& string_table, const string_type& value, IdentifierCategory token_type) : type_(token_type)
   {
     table_item_ref_it = string_table.AddString(value);
   }
@@ -115,7 +115,7 @@ public :
   // - Accessors
 
   /// Get the current type
-  SymbolCategory GetType() const
+  IdentifierCategory GetType() const
   {
     return type_;
   }
@@ -136,7 +136,7 @@ public :
 
 private:
 
-  SymbolCategory   type_;                                                         ///< The type for the stored token
+  IdentifierCategory   type_;                                                         ///< The type for the stored token
   tbl_item_ref table_item_ref_it;  ///< The value of the string from the table stored as a const iterator
 };
 

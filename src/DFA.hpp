@@ -20,7 +20,8 @@ LEXER_START
 /// The states type: unsigned int, short etc.
 /////////////////////////////////////////////////////////////////////////
 template <class char_type = char,
-          class states = unsigned int>
+          class states = unsigned int,
+          class state_label = unsigned short>
 class DFA
 {
   static_assert(lexer::tools::is_character<char_type>::value, "The class template can only be instantiated with char types like char/wchar_t");
@@ -32,7 +33,8 @@ public:
   enum class Messages : unsigned char { RECOGNIZED, UNRECOGNIZED, INVALID_ALPHABET,
                                         NULL_SEQUENCE_SIZE, NO_STATE_FOR_CHAR,
                                         NO_STATES, NO_FINAL_STATES, INVALID_STATE };  ///< Errors
-  typedef states states_type;                                                         ///< The state type
+  typedef states      states_type;                                                    ///< The state type
+  typedef state_label states_label;                                                   ///< The attached state label for each node
   typedef char_type alphabet_char_type;                                               ///< The alphabet char type
 
 private :
@@ -58,7 +60,7 @@ public :
 
 #if defined MOVE_SEMANTICS
   /// Move ctor
-  DFA(DFA&& RHS_Orphaned) : final_states_set_f_(static_cast<std::set<states_type>&&>(RHS_Object.final_states_set_f_)),
+  DFA(DFA&& RHS_Orphaned) : final_states_set_f_(static_cast<std::map<states_type, state_label>&&>(RHS_Object.final_states_set_f_)),
                             initial_state_q0_(RHS_Object.initial_state_q0_),
                             delta_states_mapping_qd_(static_cast<delta_transition_states_mapping&&>(RHS_Object.delta_states_mapping_qd_))
   {
@@ -136,7 +138,7 @@ public :
       }
     }
 
-    std::set<states_type>::const_iterator final_state;
+    std::map<states_type, state_label>::const_iterator final_state;
     final_state = final_states_set_f_.find(new_state);                    // check if my last state can be found in my set of final states
 
     if (final_state != final_states_set_f_.end())
@@ -154,9 +156,9 @@ public :
   }
 
   /// Adds a final state
-  bool AddFinalState(states_type my_final_state)
+  bool AddFinalState(states_type my_final_state, states_label node_label)
   {
-    std::set<states_type>::_Pairib ret = final_states_set_f_.insert(my_final_state);
+    std::map<states_type, state_label>::_Pairib ret = final_states_set_f_.insert(std::map<states_type, state_label>::value_type(my_final_state, node_label));
     return ret.second;
   }
 
@@ -192,9 +194,9 @@ private :
 
   // - Members
 
-  std::set<states_type>            final_states_set_f_;        ///< the final states
-  states_type                      initial_state_q0_;          ///< the initial state
-  delta_transition_states_mapping  delta_states_mapping_qd_;   ///< a simple map that keeps the states and the delta function
+  std::map<states_type, state_label> final_states_set_f_;        ///< the final states
+  states_type                        initial_state_q0_;          ///< the initial state
+  delta_transition_states_mapping    delta_states_mapping_qd_;   ///< a simple map that keeps the states and the delta function
 };
 
 LEXER_END
