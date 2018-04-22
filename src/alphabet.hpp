@@ -12,7 +12,7 @@ TOOLS_START
 enum DefaultAlphabetSubset : unsigned short                   
 {
   NONE = 0x00, UPR_LETTERS = 0x01, LWR_LETTERS = 0x02, DIGITS = 0x04,
-  MATH_OPS = 0x08, PUNCTUATION = 0x10, BRACKET = 0x20, ALL = 0xFF
+  MATH_OPS = 0x08, PUNCTUATION = 0x10, BRACKETS = 0x20, ALL = 0xFF
 };
 
 /// Templated class for keeping different subsets of an alphabet
@@ -220,9 +220,9 @@ struct SubsetCheckType<wchar_t, MATH_OPS>
 };
 
 template <>
-struct SubsetCheckType<char, BRACKET>
+struct SubsetCheckType<char, BRACKETS>
 {
-  enum { subset = BRACKET };
+  enum { subset = BRACKETS };
 
   static bool CheckSubset(const char* sequence, std::size_t sequence_size)
   {
@@ -246,9 +246,9 @@ struct SubsetCheckType<char, BRACKET>
 };
 
 template <>
-struct SubsetCheckType<wchar_t, BRACKET>
+struct SubsetCheckType<wchar_t, BRACKETS>
 {
-  enum { subset = BRACKET };
+  enum { subset = BRACKETS };
 
   static bool CheckSubset(const wchar_t* sequence, std::size_t sequence_size)
   {

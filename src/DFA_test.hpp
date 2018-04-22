@@ -14,7 +14,7 @@ struct TestDFA
 
     ad::DFA<> myDFA;
     myDFA.SetInitialState(0);
-    myDFA.AddFinalState(0, 0);
+    myDFA.AddFinalState(0);
     myDFA.AddTransition(0, '0', 0);
     myDFA.AddTransition(0, '1', 1);
     myDFA.AddTransition(1, '1', 0);
@@ -36,7 +36,7 @@ struct TestDFA
 
     ad::DFA<wchar_t> myDFA;
     myDFA.SetInitialState(0);
-    myDFA.AddFinalState(0, 0);
+    myDFA.AddFinalState(0);
     myDFA.AddTransition(0, L'0', 0);
     myDFA.AddTransition(0, L'1', 1);
     myDFA.AddTransition(1, L'1', 0);
