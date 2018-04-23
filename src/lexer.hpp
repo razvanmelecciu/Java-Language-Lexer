@@ -44,16 +44,18 @@ public :
     AddFinalState(5,  INLINE_COMMENT);
     AddFinalState(4,  MULTI_LINE_COMMENT);
     AddFinalState(8,  CHARACTER_LITERAL);
-    AddFinalState(12, STRING_LITERAL);
-    AddFinalState(14, WHITE_SPACE);
-    AddFinalState(15, CHECK_MULTI_STATE);
-    AddFinalState(16, INTEGER_LITERAL);
-    AddFinalState(17, FLOATING_POINT_LITERAL);
-    AddFinalState(20, FLOATING_POINT_LITERAL);
-    AddFinalState(21, FLOATING_POINT_LITERAL);
-    AddFinalState(22, SEPARATOR);
-    AddFinalState(23, BRACKET);
+    AddFinalState(11, STRING_LITERAL);
+    AddFinalState(12, WHITE_SPACE);
+    AddFinalState(13, CHECK_MULTI_STATE);
+    AddFinalState(14, INTEGER_LITERAL);
+    AddFinalState(15, FLOATING_POINT_LITERAL);
+    AddFinalState(18, FLOATING_POINT_LITERAL);
+    AddFinalState(19, FLOATING_POINT_LITERAL);
+    AddFinalState(20, SEPARATOR);
+    AddFinalState(21, BRACKET);
 
+    AddFinalState(22, OPERATOR);
+    AddFinalState(23, OPERATOR);
     AddFinalState(24, OPERATOR);
     AddFinalState(25, OPERATOR);
     AddFinalState(26, OPERATOR);
@@ -83,8 +85,6 @@ public :
     AddFinalState(50, OPERATOR);
     AddFinalState(51, OPERATOR);
     AddFinalState(52, OPERATOR);
-    AddFinalState(53, OPERATOR);
-    AddFinalState(54, OPERATOR);
 
     // - Start adding the transition rule
 
@@ -139,128 +139,128 @@ public :
     AddTransition(6, '\'', 8);
 
     // - Rules for String literals
-    AddTransition(0, '\"', 10);      
-    AddTransition(10, '\\', 11);
-    AddTransition(11, '\\', 10);
-    AddTransition(11, 'n', 10);
-    AddTransition(11, 't', 10);
-    AddTransition(11, '\"', 10);
-    AddTransition(11, '\'', 10);
+    AddTransition(0, '\"',  9);      
+    AddTransition(9, '\\',  10);
+    AddTransition(10, '\\', 9);
+    AddTransition(10, 'n',  9);
+    AddTransition(10, 't',  9);
+    AddTransition(10, '\"', 9);
+    AddTransition(10, '\'', 9);
 
     for (char_type c = ' '; c <= '~'; ++c)
     {
       if (c != '\"' && c != '\\')
-        AddTransition(10, c, 10);
+        AddTransition(9, c, 9);
     }
-    AddTransition(10, '\"', 12);
+    AddTransition(9, '\"', 11);
 
     // - Rules for Space, tab, crlf literals
-    AddTransition(0, ' ', 14);     
-    AddTransition(0, '\t', 14);    
-    AddTransition(0, '\n', 14);
-    AddTransition(14, ' ', 14);
-    AddTransition(14, '\t', 14);    
-    AddTransition(14, '\n', 14);
+    AddTransition(0, ' ', 12);
+    AddTransition(0, '\t', 12);
+    AddTransition(0, '\n', 12);
+    AddTransition(12, ' ', 12);
+    AddTransition(12, '\t', 12);
+    AddTransition(12, '\n', 12);
+
+    // - Rules for Identifier, keyword, boolean
+    AddTransition(0, '_', 13);
+    AddTransition(0, '@', 13);
+    for (char_type c = 'a'; c <= 'z'; ++c)
+    {
+      AddTransition(0, c, 13);                                    // lower case
+      AddTransition(0, c - 32, 13);                               // upper case
+
+      AddTransition(13, c, 13);                                   // lower case
+      AddTransition(13, c - 32, 13);                              // upper case
+    }
+
+    for (char_type c = '0'; c <= '9'; ++c)
+      AddTransition(13, c, 13);
+
+    AddTransition(13, '_', 13);
+    AddTransition(13, '@', 13);
 
     // - Rules for Integer, floating point literals
     for (char_type c = '0'; c <= '9'; ++c)
     {
-      AddTransition(0, c, 16);
-      AddTransition(16, c, 16);
-      AddTransition(17, c, 17);
-      AddTransition(19, c, 20);
-      AddTransition(20, c, 20);
-    }
-    AddTransition(16, '.', 17);
-    AddTransition(17, 'e', 18);
-    AddTransition(17, 'E', 18);
-    AddTransition(18, '+', 19);
-    AddTransition(18, '-', 19);
-    AddTransition(20, 'f', 21);
-    AddTransition(20, 'F', 21);
-
-    // - Rules for Identifier, keyword, boolean
-    AddTransition(0, '_', 15);
-    AddTransition(0, '@', 15);
-    for (char_type c = 'a'; c <= 'z'; ++c)
-    {
-      AddTransition(0, c, 15);                                    // lower case
-      AddTransition(0, c - 32, 15);                               // upper case
-                                                                  
-      AddTransition(15, c, 15);                                   // lower case
-      AddTransition(15, c - 32, 15);                              // upper case
-    }
-
-    for (char_type c = '0'; c <= '9'; ++c)
+      AddTransition(0, c,  14);
+      AddTransition(14, c, 14);
       AddTransition(15, c, 15);
-
-    AddTransition(15, '_', 15);
-    AddTransition(15, '@', 15);
+      AddTransition(17, c, 18);
+      AddTransition(18, c, 18);
+    }
+    AddTransition(14, '.', 15);
+    AddTransition(15, 'e', 16);
+    AddTransition(15, 'E', 16);
+    AddTransition(16, '+', 17);
+    AddTransition(16, '-', 17);
+    AddTransition(18, 'f', 19);
+    AddTransition(18, 'F', 19);
 
     // - Rules for separators
-    AddTransition(0, '.', 22);
-    AddTransition(0, ',', 22); 
-    AddTransition(0, ';', 22);
-    AddTransition(0, '?', 22);
-    AddTransition(0, ':', 22);
+    AddTransition(0, '.', 20);
+    AddTransition(0, ',', 20); 
+    AddTransition(0, ';', 20);
+    AddTransition(0, '?', 20);
+    AddTransition(0, ':', 20);
 
     // - Rules for brackets
-    AddTransition(0, '{', 23); 
-    AddTransition(0, '}', 23);
-    AddTransition(0, '[', 23);
-    AddTransition(0, ']', 23);
-    AddTransition(0, '(', 23);
-    AddTransition(0, ')', 23);
+    AddTransition(0, '{', 21); 
+    AddTransition(0, '}', 21);
+    AddTransition(0, '[', 21);
+    AddTransition(0, ']', 21);
+    AddTransition(0, '(', 21);
+    AddTransition(0, ')', 21);
 
     // - Rules for operators
     // +, ++, +=
-    AddTransition(0,  '+', 24); 
-    AddTransition(24, '+', 25); 
-    AddTransition(24, '=', 25); 
+    AddTransition(0,  '+', 22); 
+    AddTransition(22, '+', 23); 
+    AddTransition(22, '=', 23); 
     // -, --, -=
-    AddTransition(0,  '-', 26); 
-    AddTransition(26, '-', 27); 
-    AddTransition(26, '=', 27); 
+    AddTransition(0,  '-', 24); 
+    AddTransition(24, '-', 25); 
+    AddTransition(24, '=', 25); 
     // *, *=
-    AddTransition(0,  '*', 28); 
-    AddTransition(28, '=', 29); 
+    AddTransition(0,  '*', 26); 
+    AddTransition(26, '=', 27); 
     // ^, ^=
-    AddTransition(0,  '^', 30); 
-    AddTransition(30, '=', 31); 
+    AddTransition(0,  '^', 28); 
+    AddTransition(28, '=', 29); 
     // /, /=
-    AddTransition(0,  '/', 32); 
-    AddTransition(32, '=', 33); 
+    AddTransition(0,  '/', 30); 
+    AddTransition(30, '=', 31); 
     // &, &&, &=
-    AddTransition(0,  '&', 34); 
-    AddTransition(34, '&', 35); 
-    AddTransition(34, '=', 35); 
+    AddTransition(0,  '&', 32); 
+    AddTransition(32, '&', 33); 
+    AddTransition(32, '=', 33); 
     // |, ||, |=
-    AddTransition(0,  '|', 36); 
-    AddTransition(36, '|', 37); 
-    AddTransition(36, '=', 37); 
+    AddTransition(0,  '|', 34); 
+    AddTransition(34, '|', 35); 
+    AddTransition(34, '=', 35); 
     // =, ==
-    AddTransition(0,  '=', 38); 
-    AddTransition(38, '=', 39); 
+    AddTransition(0,  '=', 36); 
+    AddTransition(36, '=', 37); 
     // %, %=
-    AddTransition(0,  '%', 40); 
-    AddTransition(40, '=', 41); 
+    AddTransition(0,  '%', 38); 
+    AddTransition(38, '=', 39); 
     // !, !=
-    AddTransition(0,  '!', 42); 
-    AddTransition(42, '=', 43);
+    AddTransition(0,  '!', 40); 
+    AddTransition(40, '=', 41);
     // ~
-    AddTransition(0,  '~', 44); 
+    AddTransition(0,  '~', 42); 
     // >, >>, >=, >>=, >>>, >>>=
-    AddTransition(0,  '>', 45);
-    AddTransition(45, '>', 46);
-    AddTransition(45, '=', 47);
-    AddTransition(46, '>', 48);
-    AddTransition(46, '=', 49);
-    AddTransition(48, '=', 50);
+    AddTransition(0,  '>', 43);
+    AddTransition(43, '>', 44);
+    AddTransition(43, '=', 45);
+    AddTransition(44, '>', 46);
+    AddTransition(44, '=', 47);
+    AddTransition(46, '=', 48);
     // <, <<, <=
-    AddTransition(0,  '<', 51);
-    AddTransition(51, '<', 52);
-    AddTransition(51, '=', 53);
-    AddTransition(52, '=', 54);
+    AddTransition(0,  '<', 49);
+    AddTransition(49, '<', 50);
+    AddTransition(49, '=', 51);
+    AddTransition(50, '=', 52);
   }
 
   /// Dtor

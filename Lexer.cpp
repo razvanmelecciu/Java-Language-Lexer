@@ -81,7 +81,8 @@ int main(int argv, char** argc)
     for (const auto& elem : my_list)
     {
       token_identifier = elem.GetType();
-      if (token_identifier == lexer::WHITE_SPACE)       // discard the WHITE_SPACE category
+      if (token_identifier == lexer::WHITE_SPACE || token_identifier == lexer::INLINE_COMMENT ||
+          token_identifier == lexer::MULTI_LINE_COMMENT)                                          // discard the WHITE_SPACE category
         continue;
 
       elem.GetValue(token_value);
