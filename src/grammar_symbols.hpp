@@ -95,67 +95,6 @@ struct GrammarIdentifiers<char>
     grammar_symbols_.insert(string_table::value_type("double", PREDEFINED_TYPE));
     grammar_symbols_.insert(string_table::value_type("null", PREDEFINED_TYPE));
     grammar_symbols_.insert(string_table::value_type("String", PREDEFINED_TYPE));
-    
-    // - operators
-    grammar_symbols_.insert(string_table::value_type("=", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type("+", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type("-", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type("*", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type("/", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type("%", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type("^", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type("&", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type("|", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type("~", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type("!", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type("<", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type(">", OPERATOR));
-
-    grammar_symbols_.insert(string_table::value_type("++", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type("--", OPERATOR));
-
-    grammar_symbols_.insert(string_table::value_type("==", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type("!=", OPERATOR));
-
-    grammar_symbols_.insert(string_table::value_type("&&", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type("||", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type("<=", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type(">=", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type(">>", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type("<<", OPERATOR));
-
-    grammar_symbols_.insert(string_table::value_type("+=", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type("-=", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type("*=", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type("/=", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type("^=", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type("%=", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type("&=", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type("|=", OPERATOR));
-
-    grammar_symbols_.insert(string_table::value_type(">>>", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type(">>=", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type("<<=", OPERATOR));
-
-    grammar_symbols_.insert(string_table::value_type(">>>=", OPERATOR));
-
-    // - separators
-    grammar_symbols_.insert(string_table::value_type(".", SEPARATOR));
-    grammar_symbols_.insert(string_table::value_type(",", SEPARATOR));
-    grammar_symbols_.insert(string_table::value_type(";", SEPARATOR));
-    grammar_symbols_.insert(string_table::value_type(":", SEPARATOR));
-    grammar_symbols_.insert(string_table::value_type("?", SEPARATOR));
-
-    // - parantheses (no generics here)
-    grammar_symbols_.insert(string_table::value_type("{", BRACKET));
-    grammar_symbols_.insert(string_table::value_type("}", BRACKET));
-    grammar_symbols_.insert(string_table::value_type("(", BRACKET));
-    grammar_symbols_.insert(string_table::value_type(")", BRACKET));
-    grammar_symbols_.insert(string_table::value_type("[", BRACKET));
-    grammar_symbols_.insert(string_table::value_type("]", BRACKET));
-
-    // - white space
-    grammar_symbols_.insert(string_table::value_type(" ", WHITE_SPACE));
 
     // - boolean literals
     grammar_symbols_.insert(string_table::value_type("true", BOOLEAN_LITERAL));
@@ -252,67 +191,6 @@ struct GrammarIdentifiers<wchar_t>
     grammar_symbols_.insert(string_table::value_type(L"double", PREDEFINED_TYPE));
     grammar_symbols_.insert(string_table::value_type(L"null", PREDEFINED_TYPE));
     grammar_symbols_.insert(string_table::value_type(L"String", PREDEFINED_TYPE));
-
-    // - operators
-    grammar_symbols_.insert(string_table::value_type(L"=", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type(L"+", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type(L"-", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type(L"*", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type(L"/", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type(L"%", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type(L"^", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type(L"&", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type(L"|", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type(L"~", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type(L"!", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type(L"<", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type(L">", OPERATOR));
-
-    grammar_symbols_.insert(string_table::value_type(L"++", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type(L"--", OPERATOR));
-
-    grammar_symbols_.insert(string_table::value_type(L"==", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type(L"!=", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type(L"&&", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type(L"||", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type(L"<=", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type(L">=", OPERATOR));
-
-    grammar_symbols_.insert(string_table::value_type(L">>", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type(L"<<", OPERATOR));
-
-    grammar_symbols_.insert(string_table::value_type(L"+=", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type(L"-=", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type(L"*=", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type(L"/=", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type(L"^=", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type(L"%=", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type(L"&=", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type(L"|=", OPERATOR));
-
-    grammar_symbols_.insert(string_table::value_type(L">>>", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type(L">>=", OPERATOR));
-    grammar_symbols_.insert(string_table::value_type(L"<<=", OPERATOR));
-
-    grammar_symbols_.insert(string_table::value_type(L">>>=", OPERATOR));
-      
-    // - separators
-    grammar_symbols_.insert(string_table::value_type(L".", SEPARATOR));
-    grammar_symbols_.insert(string_table::value_type(L",", SEPARATOR));
-    grammar_symbols_.insert(string_table::value_type(L";", SEPARATOR));
-    grammar_symbols_.insert(string_table::value_type(L":", SEPARATOR));
-    grammar_symbols_.insert(string_table::value_type(L"?", SEPARATOR));
-
-    // - parantheses (no generics here)
-    grammar_symbols_.insert(string_table::value_type(L"{", BRACKET));
-    grammar_symbols_.insert(string_table::value_type(L"}", BRACKET));
-    grammar_symbols_.insert(string_table::value_type(L"(", BRACKET));
-    grammar_symbols_.insert(string_table::value_type(L")", BRACKET));
-    grammar_symbols_.insert(string_table::value_type(L"[", BRACKET));
-    grammar_symbols_.insert(string_table::value_type(L"]", BRACKET));
-
-    // - white space
-    grammar_symbols_.insert(string_table::value_type(L" ", WHITE_SPACE));
 
     // - boolean literals
     grammar_symbols_.insert(string_table::value_type(L"true", BOOLEAN_LITERAL));

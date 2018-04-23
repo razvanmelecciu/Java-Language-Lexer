@@ -41,8 +41,8 @@ void RunAllTests()
 
 int main(int argv, char** argc)
 {
-  std::string parsed_file_name("samples//javap1.java");
-  std::string output_file_name("samples//java_out.txt");
+  std::string parsed_file_name("samples//javap2.java");
+  std::string output_file_name("samples//lex_javap2.out");
 
   // - Input file name
   /*std::cout << "Insert the parsed file in the format [path-file-extension]\n";

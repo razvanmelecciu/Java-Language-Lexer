@@ -1,0 +1,78 @@
+Type: CHARACTER LITERAL      Value: '\''
+Type: SEPARATOR              Value: ;
+Type: KEYWORD                Value: class
+Type: IDENTIFIER             Value: TestClass
+Type: BRACKET                Value: {
+Type: KEYWORD                Value: public
+Type: KEYWORD                Value: static
+Type: PREDEFINED TYPE        Value: void
+Type: KEYWORD                Value: main
+Type: BRACKET                Value: (
+Type: PREDEFINED TYPE        Value: String
+Type: BRACKET                Value: [
+Type: BRACKET                Value: ]
+Type: IDENTIFIER             Value: args
+Type: BRACKET                Value: )
+Type: BRACKET                Value: {
+Type: PREDEFINED TYPE        Value: int
+Type: IDENTIFIER             Value: a
+Type: OPERATOR               Value: =
+Type: INTEGER LITERAL        Value: 5
+Type: SEPARATOR              Value: ;
+Type: PREDEFINED TYPE        Value: int
+Type: BRACKET                Value: [
+Type: BRACKET                Value: ]
+Type: IDENTIFIER             Value: arr
+Type: OPERATOR               Value: =
+Type: KEYWORD                Value: new
+Type: PREDEFINED TYPE        Value: int
+Type: BRACKET                Value: [
+Type: INTEGER LITERAL        Value: 8
+Type: BRACKET                Value: ]
+Type: SEPARATOR              Value: ;
+Type: PREDEFINED TYPE        Value: char
+Type: IDENTIFIER             Value: b
+Type: OPERATOR               Value: =
+Type: CHARACTER LITERAL      Value: 'b'
+Type: SEPARATOR              Value: ;
+Type: INLINE COMMENT         Value: // this line will be ignored
+Type: IDENTIFIER             Value: a
+Type: IDENTIFIER             Value: /
+Type: INTEGER LITERAL        Value: 5
+Type: SEPARATOR              Value: ;
+Type: KEYWORD                Value: if
+Type: BRACKET                Value: (
+Type: IDENTIFIER             Value: a
+Type: OPERATOR               Value: <
+Type: IDENTIFIER             Value: b
+Type: BRACKET                Value: )
+Type: BRACKET                Value: {
+Type: IDENTIFIER             Value: a
+Type: OPERATOR               Value: ++
+Type: SEPARATOR              Value: ;
+Type: KEYWORD                Value: return
+Type: BOOLEAN LITERAL        Value: false
+Type: SEPARATOR              Value: ;
+Type: BRACKET                Value: }
+Type: KEYWORD                Value: else
+Type: KEYWORD                Value: if
+Type: BRACKET                Value: (
+Type: IDENTIFIER             Value: a
+Type: OPERATOR               Value: <=
+Type: IDENTIFIER             Value: b
+Type: BRACKET                Value: )
+Type: BRACKET                Value: {
+Type: IDENTIFIER             Value: b
+Type: OPERATOR               Value: +=
+Type: INTEGER LITERAL        Value: 7
+Type: SEPARATOR              Value: ;
+Type: KEYWORD                Value: return
+Type: BOOLEAN LITERAL        Value: true
+Type: SEPARATOR              Value: ;
+Type: BRACKET                Value: }
+Type: KEYWORD                Value: return
+Type: PREDEFINED TYPE        Value: null
+Type: MULTI LINE COMMENT     Value: /* inline comment */
+Type: SEPARATOR              Value: ;
+Type: BRACKET                Value: }
+Type: BRACKET                Value: }

@@ -43,16 +43,48 @@ public :
     AddFinalState(1,  CHECK_MULTI_STATE);
     AddFinalState(5,  INLINE_COMMENT);
     AddFinalState(4,  MULTI_LINE_COMMENT);
-    AddFinalState(7,  CHARACTER_LITERAL);
-    AddFinalState(9,  CHARACTER_LITERAL);
-    AddFinalState(11, STRING_LITERAL);
-    AddFinalState(13, STRING_LITERAL);
+    AddFinalState(8,  CHARACTER_LITERAL);
+    AddFinalState(12, STRING_LITERAL);
     AddFinalState(14, WHITE_SPACE);
     AddFinalState(15, CHECK_MULTI_STATE);
     AddFinalState(16, INTEGER_LITERAL);
     AddFinalState(17, FLOATING_POINT_LITERAL);
     AddFinalState(20, FLOATING_POINT_LITERAL);
     AddFinalState(21, FLOATING_POINT_LITERAL);
+    AddFinalState(22, SEPARATOR);
+    AddFinalState(23, BRACKET);
+
+    AddFinalState(24, OPERATOR);
+    AddFinalState(25, OPERATOR);
+    AddFinalState(26, OPERATOR);
+    AddFinalState(27, OPERATOR);
+    AddFinalState(28, OPERATOR);
+    AddFinalState(29, OPERATOR);
+    AddFinalState(30, OPERATOR);
+    AddFinalState(31, OPERATOR);
+    AddFinalState(32, OPERATOR);
+    AddFinalState(33, OPERATOR);
+    AddFinalState(34, OPERATOR);
+    AddFinalState(35, OPERATOR);
+    AddFinalState(36, OPERATOR);
+    AddFinalState(37, OPERATOR);
+    AddFinalState(38, OPERATOR);
+    AddFinalState(39, OPERATOR);
+    AddFinalState(40, OPERATOR);
+    AddFinalState(41, OPERATOR);
+    AddFinalState(42, OPERATOR);
+    AddFinalState(43, OPERATOR);
+    AddFinalState(44, OPERATOR);
+    AddFinalState(45, OPERATOR);
+    AddFinalState(46, OPERATOR);
+    AddFinalState(47, OPERATOR);
+    AddFinalState(48, OPERATOR);
+    AddFinalState(49, OPERATOR);
+    AddFinalState(50, OPERATOR);
+    AddFinalState(51, OPERATOR);
+    AddFinalState(52, OPERATOR);
+    AddFinalState(53, OPERATOR);
+    AddFinalState(54, OPERATOR);
 
     // - Start adding the transition rule
 
@@ -90,39 +122,37 @@ public :
 
     // - Rules for Character literals
     AddTransition(0, '\'', 6);      
-    AddTransition(6, '\'', 7);
+    AddTransition(6, '\\', 7);
+    AddTransition(7, '\\', 6);
+    AddTransition(7, 'n',  6);
+    AddTransition(7, 't',  6);
+    AddTransition(7, '\"', 6);
+    AddTransition(7, '\'', 6);
 
     for (char_type c = ' '; c <= '~'; ++c)
     {
-      if (c != '\'')
+      if (c != '\'' && c != '\\')
       {
-        AddTransition(6, c, 8);
-        AddTransition(8, c, 8);
+        AddTransition(6, c, 6);
       }
     }
-    AddTransition(6, '\n', 8);
-    AddTransition(6, '\t', 8);
-    AddTransition(8, '\n', 8);
-    AddTransition(8, '\t', 8);
-    AddTransition(8, '\'', 9);
+    AddTransition(6, '\'', 8);
 
     // - Rules for String literals
     AddTransition(0, '\"', 10);      
-    AddTransition(10, '\"', 11);
+    AddTransition(10, '\\', 11);
+    AddTransition(11, '\\', 10);
+    AddTransition(11, 'n', 10);
+    AddTransition(11, 't', 10);
+    AddTransition(11, '\"', 10);
+    AddTransition(11, '\'', 10);
 
     for (char_type c = ' '; c <= '~'; ++c)
     {
-      if (c != '\"')
-      {
-        AddTransition(10, c, 12);
-        AddTransition(12, c, 12);
-      }
+      if (c != '\"' && c != '\\')
+        AddTransition(10, c, 10);
     }
-    AddTransition(10, '\n', 12);
-    AddTransition(10, '\t', 12);
-    AddTransition(12, '\n', 12);
-    AddTransition(12, '\t', 12);
-    AddTransition(12, '\'', 13);
+    AddTransition(10, '\"', 12);
 
     // - Rules for Space, tab, crlf literals
     AddTransition(0, ' ', 14);     
@@ -149,8 +179,9 @@ public :
     AddTransition(20, 'f', 21);
     AddTransition(20, 'F', 21);
 
-    // - Rules for Identifier, keyword, boolean, operator, separator literals
-    AddTransition(0, '_', 15);    
+    // - Rules for Identifier, keyword, boolean
+    AddTransition(0, '_', 15);
+    AddTransition(0, '@', 15);
     for (char_type c = 'a'; c <= 'z'; ++c)
     {
       AddTransition(0, c, 15);                                    // lower case
@@ -164,6 +195,72 @@ public :
       AddTransition(15, c, 15);
 
     AddTransition(15, '_', 15);
+    AddTransition(15, '@', 15);
+
+    // - Rules for separators
+    AddTransition(0, '.', 22);
+    AddTransition(0, ',', 22); 
+    AddTransition(0, ';', 22);
+    AddTransition(0, '?', 22);
+    AddTransition(0, ':', 22);
+
+    // - Rules for brackets
+    AddTransition(0, '{', 23); 
+    AddTransition(0, '}', 23);
+    AddTransition(0, '[', 23);
+    AddTransition(0, ']', 23);
+    AddTransition(0, '(', 23);
+    AddTransition(0, ')', 23);
+
+    // - Rules for operators
+    // +, ++, +=
+    AddTransition(0,  '+', 24); 
+    AddTransition(24, '+', 25); 
+    AddTransition(24, '=', 25); 
+    // -, --, -=
+    AddTransition(0,  '-', 26); 
+    AddTransition(26, '-', 27); 
+    AddTransition(26, '=', 27); 
+    // *, *=
+    AddTransition(0,  '*', 28); 
+    AddTransition(28, '=', 29); 
+    // ^, ^=
+    AddTransition(0,  '^', 30); 
+    AddTransition(30, '=', 31); 
+    // /, /=
+    AddTransition(0,  '/', 32); 
+    AddTransition(32, '=', 33); 
+    // &, &&, &=
+    AddTransition(0,  '&', 34); 
+    AddTransition(34, '&', 35); 
+    AddTransition(34, '=', 35); 
+    // |, ||, |=
+    AddTransition(0,  '|', 36); 
+    AddTransition(36, '|', 37); 
+    AddTransition(36, '=', 37); 
+    // =, ==
+    AddTransition(0,  '=', 38); 
+    AddTransition(38, '=', 39); 
+    // %, %=
+    AddTransition(0,  '%', 40); 
+    AddTransition(40, '=', 41); 
+    // !, !=
+    AddTransition(0,  '!', 42); 
+    AddTransition(42, '=', 43);
+    // ~
+    AddTransition(0,  '~', 44); 
+    // >, >>, >=, >>=, >>>, >>>=
+    AddTransition(0,  '>', 45);
+    AddTransition(45, '>', 46);
+    AddTransition(45, '=', 47);
+    AddTransition(46, '>', 48);
+    AddTransition(46, '=', 49);
+    AddTransition(48, '=', 50);
+    // <, <<, <=
+    AddTransition(0,  '<', 51);
+    AddTransition(51, '<', 52);
+    AddTransition(51, '=', 53);
+    AddTransition(52, '=', 54);
   }
 
   /// Dtor
