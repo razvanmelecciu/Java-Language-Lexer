@@ -1,0 +1,18 @@
+Type: INLINE COMMENT         Value: //1_
+Type: INLINE COMMENT         Value: //3.14 _1
+Type: INLINE COMMENT         Value: // Inline comment
+Type: MULTI LINE COMMENT     Value: /*Comment*/
+Type: PREDEFINED TYPE        Value: int
+Type: IDENTIFIER             Value: a
+Type: INTEGER LITERAL        Value: 10
+Type: IDENTIFIER             Value: _x
+Type: FLOATING POINT LITERAL Value: 10.5
+Type: FLOATING POINT LITERAL Value: 10.
+Type: PREDEFINED TYPE        Value: double
+Type: IDENTIFIER             Value: x
+Type: KEYWORD                Value: class
+Type: KEYWORD                Value: package
+Type: FLOATING POINT LITERAL Value: 3.14159
+Type: FLOATING POINT LITERAL Value: 3.14159e-1
+Type: FLOATING POINT LITERAL Value: 3.14159e+10
+Lexical analysis error - Pos No: 130

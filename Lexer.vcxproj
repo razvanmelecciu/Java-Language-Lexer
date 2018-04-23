@@ -138,12 +138,12 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="grammar_symbols.hpp" />
     <ClInclude Include="src\alphabet.hpp" />
     <ClInclude Include="src\alphabet_test.hpp" />
     <ClInclude Include="src\common.h" />
     <ClInclude Include="src\DFA.hpp" />
     <ClInclude Include="src\DFA_test.hpp" />
+    <ClInclude Include="src\grammar_symbols.hpp" />
     <ClInclude Include="src\lexer.hpp" />
     <ClInclude Include="src\token.hpp" />
     <ClInclude Include="src\tools.hpp" />

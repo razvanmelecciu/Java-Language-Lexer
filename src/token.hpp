@@ -108,7 +108,7 @@ public :
   }
 
   /// Copy
-  Token(const Token& RHS) : value_(RHS.value_), table_item_ref_it(RHS.table_item_ref_it)
+  Token(const Token& RHS) : type_(RHS.type_), table_item_ref_it(RHS.table_item_ref_it)
   {
   }  
 

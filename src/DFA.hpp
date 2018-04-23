@@ -17,7 +17,8 @@ LEXER_START
 /// where Q - list of states, V - alphabet used, d - delta transition function d: Q x V -> Q,
 ///       q0 - initial state, F - list of final states
 /// Template params: char_type (char, w_char etc.)
-/// The states type: unsigned int, short etc.
+///                  states: unsigned int, short etc.
+///                  state_label: an additional label associated with the final states
 /////////////////////////////////////////////////////////////////////////
 template <class char_type = char,
           class states = unsigned int,
@@ -30,14 +31,12 @@ class DFA
 
 public:
 
-  enum class Messages : unsigned char { RECOGNIZED, UNRECOGNIZED, INVALID_ALPHABET,
-                                        NULL_SEQUENCE_SIZE, NO_STATE_FOR_CHAR,
-                                        NO_STATES, NO_FINAL_STATES, INVALID_STATE };  ///< Errors
-  typedef states      states_type;                                                    ///< The state type
-  typedef state_label states_label;                                                   ///< The attached state label for each node
-  typedef char_type alphabet_char_type;                                               ///< The alphabet char type
+  enum class Messages : unsigned char { RECOGNIZED, UNRECOGNIZED, NULL_SEQUENCE_SIZE, NO_FINAL_STATES}; ///< Errors
+  typedef states      states_type;                                                                      ///< The state type
+  typedef state_label states_label;                                                                     ///< The attached state label for each node
+  typedef char_type alphabet_char_type;                                                                 ///< The alphabet char type
 
-private :
+protected :
 
   // - Internal types
 
@@ -116,6 +115,9 @@ public :
     if (sequence_size == 0)
       return Messages::NULL_SEQUENCE_SIZE;
 
+    if (NoFinalStates() == 0)
+      return Messages::NO_FINAL_STATES;
+
     delta_state_transition crt_transition;
     delta_transition_states_mapping::const_iterator my_crt_position(delta_states_mapping_qd_.begin());
     delta_transition_states_mapping::const_iterator states_mapping_end(delta_states_mapping_qd_.end());
@@ -138,7 +140,7 @@ public :
       }
     }
 
-    std::map<states_type, state_label>::const_iterator final_state;
+    std::map<states_type, states_label>::const_iterator final_state;
     final_state = final_states_set_f_.find(new_state);                    // check if my last state can be found in my set of final states
 
     if (final_state != final_states_set_f_.end())
@@ -190,7 +192,7 @@ public :
     return ret.second;
   }
 
-private :
+protected :
 
   // - Members
 
