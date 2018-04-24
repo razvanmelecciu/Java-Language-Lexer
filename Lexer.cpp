@@ -64,8 +64,8 @@ int main(int argv, char** argc)
 
   // - Instantiate the lexer
   lexer::GrammarIdentifiers<char> grammar_identifiers;
-  lexer::Lexer language_scanner(input_file_stream, grammar_identifiers);
-  lexer::Lexer::token_list my_list;
+  lexer::Lexer<> language_scanner(input_file_stream, grammar_identifiers);
+  lexer::Lexer<>::token_list my_list;
 
   char crt_character = '\0';
   std::string token_value, token_identifier_in_clear;
@@ -75,7 +75,7 @@ int main(int argv, char** argc)
   {
     lexer::DFA<char, unsigned short, unsigned short>::Messages ret_code = language_scanner.GetToken(my_list);
 
-    if (ret_code == lexer::Lexer::Messages::UNRECOGNIZED)
+    if (ret_code == lexer::Lexer<>::Messages::UNRECOGNIZED)
       output_file_stream << "Lexical analysis error - Pos No: " << language_scanner.GetStreamPosition() << std::endl;
 
     for (const auto& elem : my_list)

@@ -1,50 +1,23 @@
-#ifndef _lexer_h_
-#define _lexer_h_
-
-#include <iostream>
-#include <sstream>
-#include <memory>
-#include <list>
-
-#include "DFA.hpp"
-#include "token.hpp"
-#include "grammar_symbols.hpp"
+#include "stdafx.h"
+#include "lexer.h"
 
 LEXER_START
 
-template <typename character_type = char>
-class Lexer : public DFA<char, unsigned short, unsigned short>
-{
-public :
-  // - Types
-
-  typedef character_type char_type;                                                                    ///< the current character type
-  enum { CHECK_MULTI_STATE = 0x00 };                                                                  ///< used to further check against the grammar symbols
-  typedef typename lexer::tools::if_is_of_type<char_type, wchar_t, 
-                                               std::wistream&, std::istream&>::ret_type stream_type;  ///< stream type used for either ASCII or unicode files
-  typedef typename lexer::tools::if_is_of_type<char_type, wchar_t,
-                                               std::wstring, std::string>::ret_type string_type;      ///< compile time type identification
-  typedef std::list<Token<char_type> > token_list;                                                    ///< list of tokens
-
-public :
-
-  /// Constructor
-  Lexer(const stream_type& input_stream, 
-        const GrammarIdentifiers<char_type>& grammar_identifiers) : crt_stream_(input_stream), 
-                                                                    grammar_symbols_(new GrammarIdentifiers<char_type>), 
-                                                                    crt_position_(0),
-                                                                    tokens_string_table_(new TokenStringTable<char_type>)
+Lexer::Lexer(const stream_type& input_stream,
+             const GrammarIdentifiers<char_type>& grammar_identifiers) : crt_stream_(input_stream),
+                                                                         grammar_symbols_(new GrammarIdentifiers<char_type>), crt_position_(0),
+                                                                         tokens_string_table_(new TokenStringTable<char_type>)
   {
-    // - Initialize the DFA with some generic rules
+    // - Initialize the DFA with the scanning rules
 
     // - Initial state
     SetInitialState(0);
 
     // - Final states with labels
-    AddFinalState(1,  CHECK_MULTI_STATE);
-    AddFinalState(5,  INLINE_COMMENT);
-    AddFinalState(4,  MULTI_LINE_COMMENT);
-    AddFinalState(8,  CHARACTER_LITERAL);
+    AddFinalState(1, CHECK_MULTI_STATE);
+    AddFinalState(4, MULTI_LINE_COMMENT);
+    AddFinalState(5, INLINE_COMMENT);
+    AddFinalState(8, CHARACTER_LITERAL);
     AddFinalState(11, STRING_LITERAL);
     AddFinalState(12, WHITE_SPACE);
     AddFinalState(13, CHECK_MULTI_STATE);
@@ -54,7 +27,6 @@ public :
     AddFinalState(19, FLOATING_POINT_LITERAL);
     AddFinalState(20, SEPARATOR);
     AddFinalState(21, BRACKET);
-
     AddFinalState(22, OPERATOR);
     AddFinalState(23, OPERATOR);
     AddFinalState(24, OPERATOR);
@@ -87,15 +59,13 @@ public :
     AddFinalState(51, OPERATOR);
     AddFinalState(52, OPERATOR);
 
-    // - Start adding the transition rule
+    // - Transition Rules for Single line comments
+    AddTransition(0, '/', 1);
+    AddTransition(1, '*', 2);
 
-    // - Rules for Single line comments
-    AddTransition(0, static_cast<char_type>('/'), 1);       
-    AddTransition(1, static_cast<char_type>('*'), 2);
-
-    for (char_type c = static_cast<char_type>(' '); c <= static_cast<char_type>('~'); ++c)
+    for (char_type c = ' '; c <= '~'; ++c)
     {
-      if (c != static_cast<char_type>('*'))
+      if (c != '*')
       {
         AddTransition(2, c, 2);
         if (c != '/')
@@ -111,8 +81,8 @@ public :
     AddTransition(3, '*', 3);
     AddTransition(3, '/', 4);
 
-    // - Rules for Multi line comments
-    AddTransition(1, '/', 5);        
+    // - Transition Rules for Multi line comments
+    AddTransition(1, '/', 5);
 
     for (char_type c = ' '; c <= '~'; ++c)
     {
@@ -121,12 +91,12 @@ public :
     }
     AddTransition(5, '\t', 5);
 
-    // - Rules for Character literals
-    AddTransition(0, '\'', 6);      
+    // - Transition Rules for Character literals
+    AddTransition(0, '\'', 6);
     AddTransition(6, '\\', 7);
     AddTransition(7, '\\', 6);
-    AddTransition(7, 'n',  6);
-    AddTransition(7, 't',  6);
+    AddTransition(7, 'n', 6);
+    AddTransition(7, 't', 6);
     AddTransition(7, '\"', 6);
     AddTransition(7, '\'', 6);
 
@@ -139,12 +109,12 @@ public :
     }
     AddTransition(6, '\'', 8);
 
-    // - Rules for String literals
-    AddTransition(0, '\"',  9);      
-    AddTransition(9, '\\',  10);
+    // - Transition Rules for String literals
+    AddTransition(0, '\"', 9);
+    AddTransition(9, '\\', 10);
     AddTransition(10, '\\', 9);
-    AddTransition(10, 'n',  9);
-    AddTransition(10, 't',  9);
+    AddTransition(10, 'n', 9);
+    AddTransition(10, 't', 9);
     AddTransition(10, '\"', 9);
     AddTransition(10, '\'', 9);
 
@@ -155,7 +125,7 @@ public :
     }
     AddTransition(9, '\"', 11);
 
-    // - Rules for Space, tab, crlf literals
+    // - Transition Rules for Space, tab, crlf literals
     AddTransition(0, ' ', 12);
     AddTransition(0, '\t', 12);
     AddTransition(0, '\n', 12);
@@ -163,7 +133,7 @@ public :
     AddTransition(12, '\t', 12);
     AddTransition(12, '\n', 12);
 
-    // - Rules for Identifier, keyword, boolean
+    // - Transition Rules for Identifier, keyword, boolean
     AddTransition(0, '_', 13);
     AddTransition(0, '@', 13);
     for (char_type c = 'a'; c <= 'z'; ++c)
@@ -181,10 +151,10 @@ public :
     AddTransition(13, '_', 13);
     AddTransition(13, '@', 13);
 
-    // - Rules for Integer, floating point literals
+    // - Transition Rules for Integer, floating point literals
     for (char_type c = '0'; c <= '9'; ++c)
     {
-      AddTransition(0, c,  14);
+      AddTransition(0, c, 14);
       AddTransition(14, c, 14);
       AddTransition(15, c, 15);
       AddTransition(17, c, 18);
@@ -198,98 +168,76 @@ public :
     AddTransition(18, 'f', 19);
     AddTransition(18, 'F', 19);
 
-    // - Rules for separators
+    // - Transition Rules for separators
     AddTransition(0, '.', 20);
-    AddTransition(0, ',', 20); 
+    AddTransition(0, ',', 20);
     AddTransition(0, ';', 20);
     AddTransition(0, '?', 20);
     AddTransition(0, ':', 20);
 
-    // - Rules for brackets
-    AddTransition(0, '{', 21); 
+    // - Transition Rules for brackets
+    AddTransition(0, '{', 21);
     AddTransition(0, '}', 21);
     AddTransition(0, '[', 21);
     AddTransition(0, ']', 21);
     AddTransition(0, '(', 21);
     AddTransition(0, ')', 21);
 
-    // - Rules for operators
-    // +, ++, +=
-    AddTransition(0,  '+', 22); 
-    AddTransition(22, '+', 23); 
-    AddTransition(22, '=', 23); 
-    // -, --, -=
-    AddTransition(0,  '-', 24); 
-    AddTransition(24, '-', 25); 
-    AddTransition(24, '=', 25); 
-    // *, *=
-    AddTransition(0,  '*', 26); 
-    AddTransition(26, '=', 27); 
-    // ^, ^=
-    AddTransition(0,  '^', 28); 
-    AddTransition(28, '=', 29); 
-    // /, /=
-    AddTransition(0,  '/', 30); 
-    AddTransition(30, '=', 31); 
-    // &, &&, &=
-    AddTransition(0,  '&', 32); 
-    AddTransition(32, '&', 33); 
-    AddTransition(32, '=', 33); 
-    // |, ||, |=
-    AddTransition(0,  '|', 34); 
-    AddTransition(34, '|', 35); 
-    AddTransition(34, '=', 35); 
-    // =, ==
-    AddTransition(0,  '=', 36); 
-    AddTransition(36, '=', 37); 
-    // %, %=
-    AddTransition(0,  '%', 38); 
-    AddTransition(38, '=', 39); 
-    // !, !=
-    AddTransition(0,  '!', 40); 
+    // - Transition Rules for operators
+
+
+    AddTransition(0, '+', 22);                                      // +, ++, +=
+    AddTransition(22, '+', 23);
+    AddTransition(22, '=', 23);
+
+    AddTransition(0, '-', 24);                                      // -, --, -=
+    AddTransition(24, '-', 25);
+    AddTransition(24, '=', 25);
+
+    AddTransition(0, '*', 26);                                      // *, *=
+    AddTransition(26, '=', 27);
+
+    AddTransition(0, '^', 28);                                      // ^, ^=
+    AddTransition(28, '=', 29);
+
+    AddTransition(0, '/', 30);                                      // /, /=
+    AddTransition(30, '=', 31);
+
+    AddTransition(0, '&', 32);                                      // &, &&, &=
+    AddTransition(32, '&', 33);
+    AddTransition(32, '=', 33);
+
+    AddTransition(0, '|', 34);                                      // |, ||, |=
+    AddTransition(34, '|', 35);
+    AddTransition(34, '=', 35);
+
+    AddTransition(0, '=', 36);                                      // =, ==
+    AddTransition(36, '=', 37);
+
+    AddTransition(0, '%', 38);                                      // %, %=
+    AddTransition(38, '=', 39);
+
+    AddTransition(0, '!', 40);                                      // !, !=
     AddTransition(40, '=', 41);
-    // ~
-    AddTransition(0,  '~', 42); 
-    // >, >>, >=, >>=, >>>, >>>=
-    AddTransition(0,  '>', 43);
+
+    AddTransition(0, '~', 42);                                      // ~
+
+    AddTransition(0, '>', 43);                                      // >, >>, >=, >>=, >>>, >>>=
     AddTransition(43, '>', 44);
     AddTransition(43, '=', 45);
     AddTransition(44, '>', 46);
     AddTransition(44, '=', 47);
     AddTransition(46, '=', 48);
-    // <, <<, <=
-    AddTransition(0,  '<', 49);
+
+    AddTransition(0, '<', 49);                                      // <, <<, <=
     AddTransition(49, '<', 50);
     AddTransition(49, '=', 51);
     AddTransition(50, '=', 52);
   }
 
-  /// Dtor
-  ~Lexer()
-  {
-    // no manual stuff here...
-  }
-
-  /// Copy ctor disabled
-  Lexer(const Lexer& RHS) = delete;
-
-  /// Copy assignment disabled
-  Lexer& operator = (const Lexer& RHS) = delete;
-
-
-  // - Accessors
-
-  /// Get the file position
-  std::size_t GetStreamPosition() const
-  {
-    return crt_position_;
-  }
-
   /// Gets the next available token from the specified stream object (or a list of tokens if an err is encountered)
-  Messages GetToken(token_list& resulting_tokens)
+  Token<Lexer::char_type> Lexer::GetToken()
   {
-    resulting_tokens.clear();
-
     std::ostringstream stored_sequence;
 
     states_type new_state(initial_state_q0_);                                                           // reset the automata to the initial state
@@ -330,7 +278,7 @@ public :
         break;
       }
     }
-    
+
     std::map<states_type, states_label>::const_iterator final_state;
     IdentifierCategory crt_category, new_category;
     final_state = final_states_set_f_.find(new_state);                    // check if my last state can be found in my set of final states
@@ -348,24 +296,11 @@ public :
           crt_category = IDENTIFIER;
       }
 
-      Token<char_type> my_token(*tokens_string_table_, token_value, crt_category);
-      resulting_tokens.push_back(my_token);
-      return Messages::RECOGNIZED;
+      return Token<char_type>(*tokens_string_table_, token_value, crt_category);
     }
     else
-    {
-      return Messages::UNRECOGNIZED;
-    }
+      return Token<char_type>(*tokens_string_table_, "Error", UNRECOGNIZED_ERROR);
   }
-
-private:
-
-  std::size_t    crt_position_;                                           ///< the position in the stream (current character processed)
-  stream_type    crt_stream_;                                             ///< the input stream that will be tokenized
-  std::unique_ptr<TokenStringTable<char_type> >    tokens_string_table_;  ///< the string table for the tokens identified
-  std::unique_ptr<GrammarIdentifiers<char_type> >  grammar_symbols_;      ///< the table of keywords for the grammar
-};
 
 LEXER_END
 
-#endif // _lexer_h_

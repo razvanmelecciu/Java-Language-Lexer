@@ -45,10 +45,10 @@
     <ClInclude Include="src\DFA_test.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\lexer.hpp">
+    <ClInclude Include="src\grammar_symbols.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\grammar_symbols.hpp">
+    <ClInclude Include="src\lexer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -56,7 +56,10 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Lexer.cpp">
+    <ClCompile Include="src\lexer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lexer_launcher.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

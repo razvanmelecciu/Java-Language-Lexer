@@ -1,5 +1,7 @@
-Type: CHARACTER LITERAL      Value: '\''
-Type: SEPARATOR              Value: ;
+Lexical atoms list
+File analysed: samples/javap2.java
+Time: Tue Apr 24 17:59:53 2018
+
 Type: KEYWORD                Value: class
 Type: IDENTIFIER             Value: TestClass
 Type: BRACKET                Value: {
@@ -19,6 +21,8 @@ Type: IDENTIFIER             Value: a
 Type: OPERATOR               Value: =
 Type: INTEGER LITERAL        Value: 5
 Type: SEPARATOR              Value: ;
+Type: CHARACTER LITERAL      Value: '\''
+Type: SEPARATOR              Value: ;
 Type: PREDEFINED TYPE        Value: int
 Type: BRACKET                Value: [
 Type: BRACKET                Value: ]
@@ -35,10 +39,91 @@ Type: IDENTIFIER             Value: b
 Type: OPERATOR               Value: =
 Type: CHARACTER LITERAL      Value: 'b'
 Type: SEPARATOR              Value: ;
-Type: INLINE COMMENT         Value: // this line will be ignored
+Type: PREDEFINED TYPE        Value: double
+Type: IDENTIFIER             Value: x
+Type: OPERATOR               Value: =
+Type: FLOATING POINT LITERAL Value: 3.14159
+Type: SEPARATOR              Value: ;
+Type: PREDEFINED TYPE        Value: double
+Type: IDENTIFIER             Value: y
+Type: OPERATOR               Value: =
+Type: FLOATING POINT LITERAL Value: 3.14159e-10
+Type: SEPARATOR              Value: ;
 Type: IDENTIFIER             Value: a
 Type: IDENTIFIER             Value: /
 Type: INTEGER LITERAL        Value: 5
+Type: SEPARATOR              Value: ;
+Type: PREDEFINED TYPE        Value: double
+Type: IDENTIFIER             Value: z
+Type: OPERATOR               Value: =
+Type: IDENTIFIER             Value: x
+Type: OPERATOR               Value: ++
+Type: OPERATOR               Value: +
+Type: IDENTIFIER             Value: y
+Type: SEPARATOR              Value: ;
+Type: PREDEFINED TYPE        Value: int
+Type: IDENTIFIER             Value: _xi
+Type: OPERATOR               Value: =
+Type: INTEGER LITERAL        Value: 1
+Type: SEPARATOR              Value: ;
+Type: PREDEFINED TYPE        Value: int
+Type: IDENTIFIER             Value: _zi
+Type: OPERATOR               Value: =
+Type: BRACKET                Value: (
+Type: IDENTIFIER             Value: _xi
+Type: OPERATOR               Value: >>>=
+Type: INTEGER LITERAL        Value: 1
+Type: BRACKET                Value: )
+Type: OPERATOR               Value: <<
+Type: INTEGER LITERAL        Value: 1
+Type: SEPARATOR              Value: ;
+Type: PREDEFINED TYPE        Value: int
+Type: IDENTIFIER             Value: m
+Type: OPERATOR               Value: =
+Type: INTEGER LITERAL        Value: 15
+Type: SEPARATOR              Value: ,
+Type: IDENTIFIER             Value: n
+Type: OPERATOR               Value: =
+Type: INTEGER LITERAL        Value: 10
+Type: SEPARATOR              Value: ;
+Type: IDENTIFIER             Value: m
+Type: OPERATOR               Value: =
+Type: IDENTIFIER             Value: m
+Type: OPERATOR               Value: ^
+Type: IDENTIFIER             Value: n
+Type: SEPARATOR              Value: ;
+Type: IDENTIFIER             Value: n
+Type: OPERATOR               Value: =
+Type: IDENTIFIER             Value: m
+Type: OPERATOR               Value: ^
+Type: IDENTIFIER             Value: n
+Type: SEPARATOR              Value: ;
+Type: IDENTIFIER             Value: m
+Type: OPERATOR               Value: =
+Type: IDENTIFIER             Value: m
+Type: OPERATOR               Value: ^
+Type: IDENTIFIER             Value: n
+Type: SEPARATOR              Value: ;
+Lexical analysis error - Pos No: 445
+Type: STRING LITERAL         Value: "I'm a strange \"string\" literal here"
+Type: PREDEFINED TYPE        Value: boolean
+Type: IDENTIFIER             Value: _val
+Type: OPERATOR               Value: =
+Type: BOOLEAN LITERAL        Value: true
+Type: KEYWORD                Value: if
+Type: BRACKET                Value: (
+Type: IDENTIFIER             Value: _val
+Type: OPERATOR               Value: ==
+Type: BOOLEAN LITERAL        Value: true
+Type: BRACKET                Value: )
+Type: IDENTIFIER             Value: System
+Type: SEPARATOR              Value: .
+Type: IDENTIFIER             Value: out
+Type: SEPARATOR              Value: .
+Type: IDENTIFIER             Value: println
+Type: BRACKET                Value: (
+Type: STRING LITERAL         Value: "YES"
+Type: BRACKET                Value: )
 Type: SEPARATOR              Value: ;
 Type: KEYWORD                Value: if
 Type: BRACKET                Value: (
@@ -72,7 +157,6 @@ Type: SEPARATOR              Value: ;
 Type: BRACKET                Value: }
 Type: KEYWORD                Value: return
 Type: PREDEFINED TYPE        Value: null
-Type: MULTI LINE COMMENT     Value: /* inline comment */
 Type: SEPARATOR              Value: ;
 Type: BRACKET                Value: }
 Type: BRACKET                Value: }

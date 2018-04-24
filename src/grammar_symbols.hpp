@@ -16,7 +16,7 @@ enum IdentifierCategory : unsigned short
   CHARACTER_LITERAL, STRING_LITERAL, 
   OPERATOR, WHITE_SPACE,
   INLINE_COMMENT, MULTI_LINE_COMMENT, BRACKET,
-  SEPARATOR
+  SEPARATOR, UNRECOGNIZED_ERROR
 };
 
 template <typename char_type>
