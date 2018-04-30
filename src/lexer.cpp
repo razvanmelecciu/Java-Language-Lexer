@@ -33,51 +33,22 @@ Lexer::Lexer(const in_stream_type& input_stream,
   AddFinalState(15, FLOATING_POINT_LITERAL);
   AddFinalState(18, FLOATING_POINT_LITERAL);
   AddFinalState(19, FLOATING_POINT_LITERAL);
-  AddFinalState(20, SEPARATOR);
-  AddFinalState(21, BRACKET);
-  AddFinalState(22, OPERATOR);
-  AddFinalState(23, OPERATOR);
-  AddFinalState(24, OPERATOR);
-  AddFinalState(25, OPERATOR);
-  AddFinalState(26, OPERATOR);
-  AddFinalState(27, OPERATOR);
-  AddFinalState(28, OPERATOR);
-  AddFinalState(29, OPERATOR);
-  AddFinalState(30, OPERATOR);
-  AddFinalState(31, OPERATOR);
-  AddFinalState(32, OPERATOR);
-  AddFinalState(33, OPERATOR);
-  AddFinalState(34, OPERATOR);
-  AddFinalState(35, OPERATOR);
-  AddFinalState(36, OPERATOR);
-  AddFinalState(37, OPERATOR);
-  AddFinalState(38, OPERATOR);
-  AddFinalState(39, OPERATOR);
-  AddFinalState(40, OPERATOR);
-  AddFinalState(41, OPERATOR);
-  AddFinalState(42, OPERATOR);
-  AddFinalState(43, OPERATOR);
-  AddFinalState(44, OPERATOR);
-  AddFinalState(45, OPERATOR);
-  AddFinalState(46, OPERATOR);
-  AddFinalState(47, OPERATOR);
-  AddFinalState(48, OPERATOR);
-  AddFinalState(49, OPERATOR);
-  AddFinalState(50, OPERATOR);
-  AddFinalState(51, OPERATOR);
-  AddFinalState(52, OPERATOR);
-  AddFinalState(53, INTEGER_LITERAL);
-  AddFinalState(55, INTEGER_LITERAL);
-  AddFinalState(56, SEPARATOR);
-  AddFinalState(57, INTEGER_LITERAL);
+  AddFinalState(20, INTEGER_LITERAL);
+  AddFinalState(22, INTEGER_LITERAL);
+  AddFinalState(23, INTEGER_LITERAL);
+  AddFinalState(24, SEPARATOR);
+  AddFinalState(25, SEPARATOR);
+  AddFinalState(26, BRACKET);
+
+  for (short i = 27; i <= 57; ++i)
+    AddFinalState(i, OPERATOR);
 
   // - Transition Rules for Single line comments
   AddTransition(0, '/', 1);
   AddTransition(1, '*', 2);
   AddTransition(2, all_characters, sizeof(all_characters) - 1, "*", 1, 2);
-  AddTransition(3, all_characters, sizeof(all_characters) - 1, "*/", 2, 2);
-
   AddTransition(2, "\n\t", 2, 2);
+  AddTransition(3, all_characters, sizeof(all_characters) - 1, "*/", 2, 2);
   AddTransition(3, "\n\t", 2, 2);
   AddTransition(2, '*', 3);
   AddTransition(3, '*', 3);
@@ -116,15 +87,6 @@ Lexer::Lexer(const in_stream_type& input_stream,
   AddTransition(13, special_var_chars, sizeof(special_var_chars) - 1, 13);
 
   // - Transition Rules for Integer, floating point literals
-  AddTransition(0, '0', 53);
-  AddTransition(53, digits, sizeof(digits) - 1, 14);
-  AddTransition(53, '.', 15);
-  AddTransition(53, "xX", 2, 54);
-  AddTransition(54, letters_hexa, sizeof(letters_hexa) - 1, 55);
-  AddTransition(54, digits, sizeof(digits) - 1, 55);
-  AddTransition(55, digits, sizeof(digits) - 1, 55);
-  AddTransition(55, letters_hexa, sizeof(letters_hexa) - 1, 55);
-  AddTransition(55, "lL", 2, 57);
   AddTransition(0, "123456789", 9, 14);
   AddTransition(14, digits, sizeof(digits) - 1, 14);
   AddTransition(15, digits, sizeof(digits) - 1, 15);
@@ -132,65 +94,74 @@ Lexer::Lexer(const in_stream_type& input_stream,
   AddTransition(17, digits, sizeof(digits) - 1, 18);
   AddTransition(18, digits, sizeof(digits) - 1, 18);
   AddTransition(14, '.', 15);
-  AddTransition(14, "lL", 2, 57);
+  AddTransition(14, "lL", 2, 23);
   AddTransition(15, "eE", 2, 16);
   AddTransition(16, "+-", 2, 17);
   AddTransition(18, "fF", 2, 19);
+  AddTransition(0, '0', 20);
+  AddTransition(20, digits, sizeof(digits) - 1, 14);
+  AddTransition(20, '.', 15);
+  AddTransition(20, "xX", 2, 21);
+  AddTransition(21, letters_hexa, sizeof(letters_hexa) - 1, 22);
+  AddTransition(21, digits, sizeof(digits) - 1, 22);
+  AddTransition(22, letters_hexa, sizeof(letters_hexa) - 1, 22);
+  AddTransition(22, digits, sizeof(digits) - 1, 22);
+  AddTransition(22, "lL", 2, 23);
 
   // - Transition Rules for the Dot - special case
-  AddTransition(0, '.', 56);
-  AddTransition(56, digits, sizeof(digits) - 1, 15);
+  AddTransition(0, '.', 25);
+  AddTransition(25, digits, sizeof(digits) - 1, 15);
 
   // - Transition Rules for separators (The dot is a special case treated above)
-  AddTransition(0, ",;?:", 4, 20);
+  AddTransition(0, ",;?:", 4, 24);
 
   // - Transition Rules for brackets
-  AddTransition(0, "{}[]()", 6, 21);
+  AddTransition(0, "{}[]()", 6, 26);
 
   // - Transition Rules for operators
-  AddTransition(0, '+', 22);                                      // +, ++, +=
-  AddTransition(22, "+=", 2, 23);
+  AddTransition(0, '+', 27);                                      // +, ++, +=
+  AddTransition(27, "+=", 2, 28);
 
-  AddTransition(0, '-', 24);                                      // -, --, -=
-  AddTransition(24, "-=", 2, 25);
+  AddTransition(0, '-', 29);                                      // -, --, -=
+  AddTransition(29, "-=", 2, 30);
 
-  AddTransition(0, '*', 26);                                      // *, *=
-  AddTransition(26, '=', 27);
+  AddTransition(0, '*', 31);                                      // *, *=
+  AddTransition(31, '=', 32);
 
-  AddTransition(0, '^', 28);                                      // ^, ^=
-  AddTransition(28, '=', 29);
+  AddTransition(0, '^', 33);                                      // ^, ^=
+  AddTransition(33, '=', 34);
 
-  AddTransition(0, '/', 30);                                      // /, /=
-  AddTransition(30, '=', 31);
+  AddTransition(0, '/', 35);                                      // /, /=
+  AddTransition(35, '=', 36);
 
-  AddTransition(0, '&', 32);                                      // &, &&, &=
-  AddTransition(32, "&=", 2, 33);
+  AddTransition(0, '&', 37);                                      // &, &&, &=
+  AddTransition(37, "&=", 2, 38);
 
-  AddTransition(0, '|', 34);                                      // |, ||, |=
-  AddTransition(34, "|=", 2, 35);
+  AddTransition(0, '|', 39);                                      // |, ||, |=
+  AddTransition(39, "|=", 2, 40);
 
-  AddTransition(0, '=', 36);                                      // =, ==
-  AddTransition(36, '=', 37);
+  AddTransition(0, '=', 41);                                      // =, ==
+  AddTransition(41, '=', 42);
 
-  AddTransition(0, '%', 38);                                      // %, %=
-  AddTransition(38, '=', 39);
+  AddTransition(0, '%', 43);                                      // %, %=
+  AddTransition(43, '=', 44);
 
-  AddTransition(0, '!', 40);                                      // !, !=
-  AddTransition(40, '=', 41);
+  AddTransition(0, '!', 45);                                      // !, !=
+  AddTransition(45, '=', 46);
 
-  AddTransition(0, '~', 42);                                      // ~
+  AddTransition(0, '~', 47);                                      // ~
 
-  AddTransition(0, '>', 43);                                      // >, >>, >=, >>=, >>>, >>>=
-  AddTransition(43, '>', 44);
-  AddTransition(43, '=', 45);
-  AddTransition(44, '>', 46);
-  AddTransition(44, '=', 47);
-  AddTransition(46, '=', 48);
+  AddTransition(0, '>', 48);                                      // >, >>, >=, >>=, >>>, >>>=
+  AddTransition(48, '>', 49);
+  AddTransition(48, '=', 50);
+  AddTransition(49, '>', 51);
+  AddTransition(49, '=', 52);
+  AddTransition(51, '=', 53);
 
-  AddTransition(0, '<', 49);                                      // <, <<, <=
-  AddTransition(49, '<', 50);
-  AddTransition(49, '=', 51);
-  AddTransition(50, '=', 52);
+  AddTransition(0, '<', 54);                                      // <, <<, <=
+  AddTransition(54, '<', 55);
+  AddTransition(54, '=', 56);
+  AddTransition(55, '=', 57);
 }
 
 Token<Lexer::char_type> Lexer::GetToken()

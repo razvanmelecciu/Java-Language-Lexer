@@ -11,6 +11,8 @@ public class TestClass implements Serializable
 	   
 	   char $ch = '\'';
 	   char _ch = 'b';
+     
+     long __$ = 0x0l;
 	   
        int[] arr = new int[8];
 	   
