@@ -1,64 +1,126 @@
-package test;
+package primes;
 
-import lexer.Lexer;
-import lexer.Token;
-import lexer.TokenType;
-import org.junit.jupiter.api.Test;
-import utilities.DummyReader;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-class LexerOperatorTokenTest {
-
-    @Test
-    void readLessThanOperatorToken() {
-        DummyReader dummyReader = new DummyReader("a<b");
-        Lexer lexer = new Lexer(dummyReader);
-        lexer.getToken();
-        Token token = lexer.getToken();
-
-        TestUtils.validateTokenType(token, TokenType.OPERATOR);
+class Printer
+{
+    private static final List<String> listNumbers = new LinkedList(); 
+    
+    static synchronized void AddResult(int nbToAdd, int threadID)
+    {
+        listNumbers.add(nbToAdd + " <" + threadID +">");
     }
-
-    @Test
-    void readLessOrEqThanOperatorToken() {
-        DummyReader dummyReader = new DummyReader("a<=b");
-        Lexer lexer = new Lexer(dummyReader);
-        lexer.getToken();
-        Token token = lexer.getToken();
-
-        TestUtils.validateTokenType(token, TokenType.OPERATOR);
-        TestUtils.validateTokenValue(token, "<=");
+    
+    static void PrintAll()
+    {
+        for (final String i : listNumbers)
+            System.out.println(i);
     }
+}
 
-    @Test
-    void readPlusOperatorToken() {
-        DummyReader dummyReader = new DummyReader("+");
-        Lexer lexer = new Lexer(dummyReader);
-        Token token = lexer.getToken();
-
-        TestUtils.validateTokenType(token, TokenType.OPERATOR);
+public class PrimeThread implements Runnable
+{
+    private final int testPrime;
+    private final int threadID;
+    private boolean isNbPrime;
+    
+    public PrimeThread(int testPrime, int threadID)
+    {
+        this.testPrime = testPrime;
+        isNbPrime = false;
+        this.threadID = threadID;
     }
-
-    @Test
-    void readPlusPlusOperatorToken() {
-        DummyReader dummyReader = new DummyReader("a++");
-        Lexer lexer = new Lexer(dummyReader);
-        lexer.getToken();
-        Token token = lexer.getToken();
-
-        TestUtils.validateTokenType(token, TokenType.OPERATOR);
-        TestUtils.validateTokenValue(token, "++");
+    
+    @Override
+    public void run()
+    {
+        isNbPrime = isPrime(testPrime);
+        if (isNbPrime)
+            Printer.AddResult(testPrime, threadID);
     }
-
-    @Test
-    void readDivideOperatorToken() {
-        DummyReader dummyReader = new DummyReader("10/5;");
-        Lexer lexer = new Lexer(dummyReader);
-        lexer.getToken();
-        Token token = lexer.getToken();
-
-        TestUtils.validateTokenType(token, TokenType.OPERATOR);
-        TestUtils.validateTokenPosition(token, 2, 0);
-
+    
+    protected boolean isPrime(int crtNumber)
+    {
+        if (crtNumber < 4)
+            return true;
+        
+        int nLimit = crtNumber / 2;
+        for (int i = 2; i <= nLimit; ++i)
+        {
+            if (crtNumber % i == 0)
+                return false;
+        }
+        return true;
     }
+    
+}
 
+public class PrimeSeq
+{
+
+    @SuppressWarnings("empty-statement")
+    public static void main(String[] args) throws InterruptedException
+    {
+        int nbThreads = 4;
+        int option = 2;
+
+        switch (option)
+        {
+
+            case 1:                  // manual thread management
+            {
+                System.out.println("Running a number of " + nbThreads + " manually managed threads");
+                Thread[] thList = new Thread[nbThreads];
+                
+                for (int i = 1; i < 1000000; i += nbThreads)
+                {
+                    for (int j = 0; j < nbThreads; ++j)
+                    {
+                        thList[j] = new Thread(new PrimeThread(i + j, j));
+                        thList[j].start();
+                    }
+
+                    for (Thread th : thList)
+                    {
+                        th.join();
+                    }
+                }            
+            }
+            break;
+            case 2:                  // thread pool cached
+            {
+                System.out.println("Running a cached pool of " + nbThreads + " threads");
+                ExecutorService threadPool = Executors.newFixedThreadPool(nbThreads);
+                for (int i = 1; i < 1000000; i += nbThreads)
+                {
+                    for (int j = 0; j < nbThreads; ++j)
+                    {
+                        threadPool.submit(new PrimeThread(i + j, j));
+                    }
+                }
+                threadPool.shutdown();
+                   
+                while (!threadPool.isTerminated())
+                {   
+                }
+            }
+            break;
+            default:                   // sequential
+            {
+                System.out.println("Running on a single thread");
+                PrimeThread Obj;
+                for (int i = 1; i < 1000000; ++i)
+                {
+                    Obj = new PrimeThread(i, 0);
+                    Obj.run();
+                }
+            }
+            break;
+        }
+        
+        Printer.PrintAll();
+    }
 }

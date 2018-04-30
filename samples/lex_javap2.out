@@ -1,9 +1,17 @@
 Lexical atoms list
 File analysed: samples/javap2.java
-Time: Tue Apr 24 19:22:50 2018
+Time: Mon Apr 30 19:55:53 2018
 
+Type: KEYWORD                Value: package
+Type: IDENTIFIER             Value: com
+Type: SEPARATOR              Value: .
+Type: IDENTIFIER             Value: myPackage
+Type: SEPARATOR              Value: ;
+Type: KEYWORD                Value: public
 Type: KEYWORD                Value: class
 Type: IDENTIFIER             Value: TestClass
+Type: KEYWORD                Value: implements
+Type: IDENTIFIER             Value: Serializable
 Type: BRACKET                Value: {
 Type: KEYWORD                Value: public
 Type: KEYWORD                Value: static
@@ -21,7 +29,43 @@ Type: IDENTIFIER             Value: a
 Type: OPERATOR               Value: =
 Type: INTEGER LITERAL        Value: 5
 Type: SEPARATOR              Value: ;
+Type: PREDEFINED TYPE        Value: int
+Type: IDENTIFIER             Value: b
+Type: OPERATOR               Value: =
+Type: INTEGER LITERAL        Value: 123l
+Type: SEPARATOR              Value: ;
+Type: PREDEFINED TYPE        Value: int
+Type: IDENTIFIER             Value: c
+Type: OPERATOR               Value: =
+Type: INTEGER LITERAL        Value: 0xA1L
+Type: SEPARATOR              Value: ,
+Type: IDENTIFIER             Value: d
+Type: OPERATOR               Value: =
+Type: INTEGER LITERAL        Value: 0123l
+Type: SEPARATOR              Value: ,
+Type: IDENTIFIER             Value: e
+Type: OPERATOR               Value: =
+Type: INTEGER LITERAL        Value: 1234L
+Type: SEPARATOR              Value: ;
+Type: PREDEFINED TYPE        Value: int
+Type: IDENTIFIER             Value: _1
+Type: OPERATOR               Value: =
+Type: INTEGER LITERAL        Value: 0XFFL
+Type: SEPARATOR              Value: ;
+Type: PREDEFINED TYPE        Value: int
+Type: IDENTIFIER             Value: $2
+Type: OPERATOR               Value: =
+Type: INTEGER LITERAL        Value: 0X00L
+Type: SEPARATOR              Value: ;
+Type: PREDEFINED TYPE        Value: char
+Type: IDENTIFIER             Value: $ch
+Type: OPERATOR               Value: =
 Type: CHARACTER LITERAL      Value: '\''
+Type: SEPARATOR              Value: ;
+Type: PREDEFINED TYPE        Value: char
+Type: IDENTIFIER             Value: _ch
+Type: OPERATOR               Value: =
+Type: CHARACTER LITERAL      Value: 'b'
 Type: SEPARATOR              Value: ;
 Type: PREDEFINED TYPE        Value: int
 Type: BRACKET                Value: [
@@ -34,11 +78,6 @@ Type: BRACKET                Value: [
 Type: INTEGER LITERAL        Value: 8
 Type: BRACKET                Value: ]
 Type: SEPARATOR              Value: ;
-Type: PREDEFINED TYPE        Value: char
-Type: IDENTIFIER             Value: b
-Type: OPERATOR               Value: =
-Type: CHARACTER LITERAL      Value: 'b'
-Type: SEPARATOR              Value: ;
 Type: PREDEFINED TYPE        Value: double
 Type: IDENTIFIER             Value: x
 Type: OPERATOR               Value: =
@@ -49,17 +88,39 @@ Type: IDENTIFIER             Value: y
 Type: OPERATOR               Value: =
 Type: FLOATING POINT LITERAL Value: 3.14159e-10
 Type: SEPARATOR              Value: ;
+Type: PREDEFINED TYPE        Value: double
+Type: IDENTIFIER             Value: z
+Type: OPERATOR               Value: =
+Type: FLOATING POINT LITERAL Value: .0
+Type: SEPARATOR              Value: ;
+Type: PREDEFINED TYPE        Value: double
+Type: IDENTIFIER             Value: u
+Type: OPERATOR               Value: =
+Type: FLOATING POINT LITERAL Value: .0e-1f
+Type: SEPARATOR              Value: ,
+Type: IDENTIFIER             Value: v
+Type: OPERATOR               Value: =
+Type: FLOATING POINT LITERAL Value: .0e1
+Type: SEPARATOR              Value: ,
+Type: IDENTIFIER             Value: w
+Type: OPERATOR               Value: =
+Type: FLOATING POINT LITERAL Value: .0e1f
+Type: SEPARATOR              Value: ;
 Type: IDENTIFIER             Value: a
 Type: IDENTIFIER             Value: /
-Type: INTEGER LITERAL        Value: 5
+Type: FLOATING POINT LITERAL Value: 5.123E+05F
 Type: SEPARATOR              Value: ;
 Type: PREDEFINED TYPE        Value: double
 Type: IDENTIFIER             Value: z
 Type: OPERATOR               Value: =
+Type: BRACKET                Value: (
 Type: IDENTIFIER             Value: x
 Type: OPERATOR               Value: ++
 Type: OPERATOR               Value: +
 Type: IDENTIFIER             Value: y
+Type: BRACKET                Value: )
+Type: OPERATOR               Value: *=
+Type: FLOATING POINT LITERAL Value: 15.1E0F
 Type: SEPARATOR              Value: ;
 Type: PREDEFINED TYPE        Value: int
 Type: IDENTIFIER             Value: _xi
@@ -104,12 +165,27 @@ Type: IDENTIFIER             Value: m
 Type: OPERATOR               Value: ^
 Type: IDENTIFIER             Value: n
 Type: SEPARATOR              Value: ;
-Lexical analysis error - Pos No: 445
+Type: IDENTIFIER             Value: System
+Type: SEPARATOR              Value: .
+Type: IDENTIFIER             Value: out
+Type: SEPARATOR              Value: .
+Type: IDENTIFIER             Value: println
+Type: BRACKET                Value: (
+Type: STRING LITERAL         Value: "The value of pi is p=3.14159"
+Type: BRACKET                Value: )
+Type: SEPARATOR              Value: ;
+Lexical analysis error - Pos No: 759
+Type: PREDEFINED TYPE        Value: float
+Type: IDENTIFIER             Value: xyz
+Type: OPERATOR               Value: =
+Type: FLOATING POINT LITERAL Value: 15.
+Type: SEPARATOR              Value: ;
 Type: STRING LITERAL         Value: "I'm a strange \"string\" literal here"
 Type: PREDEFINED TYPE        Value: boolean
 Type: IDENTIFIER             Value: _val
 Type: OPERATOR               Value: =
 Type: BOOLEAN LITERAL        Value: true
+Type: SEPARATOR              Value: ;
 Type: KEYWORD                Value: if
 Type: BRACKET                Value: (
 Type: IDENTIFIER             Value: _val
@@ -124,6 +200,12 @@ Type: IDENTIFIER             Value: println
 Type: BRACKET                Value: (
 Type: STRING LITERAL         Value: "YES"
 Type: BRACKET                Value: )
+Type: SEPARATOR              Value: ;
+Type: PREDEFINED TYPE        Value: double
+Type: IDENTIFIER             Value: _$k
+Type: OPERATOR               Value: =
+Lexical analysis error - Pos No: 957
+Type: IDENTIFIER             Value: F
 Type: SEPARATOR              Value: ;
 Type: KEYWORD                Value: if
 Type: BRACKET                Value: (

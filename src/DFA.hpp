@@ -25,7 +25,7 @@ template <class char_type = char,
           class state_label = unsigned short>
 class DFA
 {
-  static_assert(lexer::tools::is_character<char_type>::value, "The class template can only be instantiated with char types like char/wchar_t");
+  static_assert(tools::is_character<char_type>::value, "The class template can only be instantiated with char types like char/wchar_t");
 
   // - Public types
 
@@ -35,6 +35,8 @@ public:
   typedef states      states_type;                                                                      ///< The state type
   typedef state_label states_label;                                                                     ///< The attached state label for each node
   typedef char_type alphabet_char_type;                                                                 ///< The alphabet char type
+  typedef typename tools::if_is_of_type<char_type, wchar_t,
+                                        std::wstring, std::string>::ret_type string_type;               ///< compile time type identification
 
 protected :
 
@@ -110,7 +112,7 @@ public :
   }
 
   /// Check if the language denoted by this DFA recognizes the string specified (std::string val.c_str() or std::wstring val.c_str())
-  Messages Accepts(alphabet_char_type* crt_sequence, std::size_t sequence_size) const
+  Messages Accepts(const alphabet_char_type* crt_sequence, std::size_t sequence_size) const
   {
     if (sequence_size == 0)
       return Messages::NULL_SEQUENCE_SIZE;
@@ -190,6 +192,46 @@ public :
     delta_state_transition crt_transition(old_state, character);
     delta_transition_states_mapping::_Pairib ret = delta_states_mapping_qd_.insert(delta_transition_states_mapping::value_type(crt_transition, new_state));
     return ret.second;
+  }
+
+  /// Adds several transitions from the specified string
+  void AddTransition(states_type old_state, const alphabet_char_type* crt_sequence, std::size_t sequence_size, states_type new_state)
+  {
+    delta_state_transition crt_transition;
+    crt_transition.first = old_state;
+    for (std::size_t i = 0; i < sequence_size; ++i)
+    {
+      crt_transition.second = crt_sequence[i];
+      delta_states_mapping_qd_.insert(delta_transition_states_mapping::value_type(crt_transition, new_state));
+    }
+  }
+
+  /// Adds several transitions from the specified string, excluding the characters mentioned
+  void AddTransition(states_type old_state, const alphabet_char_type* crt_sequence, std::size_t sequence_size, 
+                     const alphabet_char_type* exceptions, std::size_t exceptions_sequence_size, states_type new_state)
+  {
+    bool add_character = true;
+    delta_state_transition crt_transition;
+    crt_transition.first = old_state;
+
+    for (std::size_t i = 0; i < sequence_size; ++i)
+    {
+      add_character = true;
+      for (std::size_t j = 0; j < exceptions_sequence_size; ++j)
+      {
+        if (crt_sequence[i] == exceptions[j])
+        {
+          add_character = false;
+          break;
+        }
+      }
+
+      if (add_character)                                    // insert characters that are not found in the exceptions list
+      {
+        crt_transition.second = crt_sequence[i];
+        delta_states_mapping_qd_.insert(delta_transition_states_mapping::value_type(crt_transition, new_state));
+      }
+    }
   }
 
 protected :

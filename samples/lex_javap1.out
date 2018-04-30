@@ -1,7 +1,7 @@
-Type: INLINE COMMENT         Value: //1_
-Type: INLINE COMMENT         Value: //3.14 _1
-Type: INLINE COMMENT         Value: // Inline comment
-Type: MULTI LINE COMMENT     Value: /*Comment*/
+Lexical atoms list
+File analysed: samples/javap1.java
+Time: Mon Apr 30 19:56:48 2018
+
 Type: PREDEFINED TYPE        Value: int
 Type: IDENTIFIER             Value: a
 Type: INTEGER LITERAL        Value: 10
