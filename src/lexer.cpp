@@ -22,7 +22,7 @@ Lexer::Lexer(const in_stream_type& input_stream,
   SetInitialState(0);
 
   // - Final states with labels
-  AddFinalState(1, CHECK_MULTI_STATE);
+  AddFinalState(1, OPERATOR);
   AddFinalState(4, MULTI_LINE_COMMENT);
   AddFinalState(5, INLINE_COMMENT);
   AddFinalState(8, CHARACTER_LITERAL);
@@ -39,13 +39,13 @@ Lexer::Lexer(const in_stream_type& input_stream,
   AddFinalState(24, SEPARATOR);
   AddFinalState(25, SEPARATOR);
   AddFinalState(26, BRACKET);
+  for (short i = 27; i <= 56; ++i)
+      AddFinalState(i, OPERATOR);
 
-  for (short i = 27; i <= 57; ++i)
-    AddFinalState(i, OPERATOR);
-
-  // - Transition Rules for Single line comments
+  // - Transition Rules for Single line comments and / along with /= operators
   AddTransition(0, '/', 1);
   AddTransition(1, '*', 2);
+  AddTransition(1, '=', 35);
   AddTransition(2, all_characters, sizeof(all_characters) - 1, "*", 1, 2);
   AddTransition(2, "\n\t", 2, 2);
   AddTransition(3, all_characters, sizeof(all_characters) - 1, "*/", 2, 2);
@@ -95,6 +95,7 @@ Lexer::Lexer(const in_stream_type& input_stream,
   AddTransition(18, digits, sizeof(digits) - 1, 18);
   AddTransition(14, '.', 15);
   AddTransition(14, "lL", 2, 23);
+  AddTransition(14, "eE", 2, 16);
   AddTransition(15, "eE", 2, 16);
   AddTransition(16, "+-", 2, 17);
   AddTransition(18, "fF", 2, 19);
@@ -131,37 +132,34 @@ Lexer::Lexer(const in_stream_type& input_stream,
   AddTransition(0, '^', 33);                                      // ^, ^=
   AddTransition(33, '=', 34);
 
-  AddTransition(0, '/', 35);                                      // /, /=
-  AddTransition(35, '=', 36);
+  AddTransition(0, '&', 36);                                      // &, &&, &=
+  AddTransition(36, "&=", 2, 37);
 
-  AddTransition(0, '&', 37);                                      // &, &&, &=
-  AddTransition(37, "&=", 2, 38);
+  AddTransition(0, '|', 38);                                      // |, ||, |=
+  AddTransition(38, "|=", 2, 39);
 
-  AddTransition(0, '|', 39);                                      // |, ||, |=
-  AddTransition(39, "|=", 2, 40);
+  AddTransition(0, '=', 40);                                      // =, ==
+  AddTransition(40, '=', 41);
 
-  AddTransition(0, '=', 41);                                      // =, ==
-  AddTransition(41, '=', 42);
+  AddTransition(0, '%', 42);                                      // %, %=
+  AddTransition(42, '=', 43);
 
-  AddTransition(0, '%', 43);                                      // %, %=
-  AddTransition(43, '=', 44);
+  AddTransition(0, '!', 44);                                      // !, !=
+  AddTransition(44, '=', 45);
 
-  AddTransition(0, '!', 45);                                      // !, !=
-  AddTransition(45, '=', 46);
+  AddTransition(0, '~', 46);                                      // ~
 
-  AddTransition(0, '~', 47);                                      // ~
+  AddTransition(0, '>', 47);                                      // >, >>, >=, >>=, >>>, >>>=
+  AddTransition(47, '>', 48);
+  AddTransition(47, '=', 49);
+  AddTransition(48, '>', 50);
+  AddTransition(48, '=', 51);
+  AddTransition(50, '=', 52);
 
-  AddTransition(0, '>', 48);                                      // >, >>, >=, >>=, >>>, >>>=
-  AddTransition(48, '>', 49);
-  AddTransition(48, '=', 50);
-  AddTransition(49, '>', 51);
-  AddTransition(49, '=', 52);
-  AddTransition(51, '=', 53);
-
-  AddTransition(0, '<', 54);                                      // <, <<, <=
-  AddTransition(54, '<', 55);
+  AddTransition(0, '<', 53);                                      // <, <<, <=
+  AddTransition(53, '<', 54);
+  AddTransition(53, '=', 55);
   AddTransition(54, '=', 56);
-  AddTransition(55, '=', 57);
 }
 
 Token<Lexer::char_type> Lexer::GetToken()

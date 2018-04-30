@@ -1,0 +1,57 @@
+Lexical atoms list
+File analysed: samples/javap6.java
+Time: Mon Apr 30 23:12:04 2018
+
+Type: PREDEFINED TYPE        Value: int
+Type: IDENTIFIER             Value: a
+Type: SEPARATOR              Value: ;
+Type: OPERATOR               Value: *
+Type: IDENTIFIER             Value: dgbdb
+Type: OPERATOR               Value: *
+Type: STRING LITERAL         Value: "/*kjh*/"
+Type: STRING LITERAL         Value: "/*"
+Type: IDENTIFIER             Value: kjh
+Type: STRING LITERAL         Value: "'\"'"
+Type: PREDEFINED TYPE        Value: int
+Type: KEYWORD                Value: main
+Type: BRACKET                Value: (
+Type: BRACKET                Value: )
+Type: BRACKET                Value: {
+Type: KEYWORD                Value: if
+Type: BRACKET                Value: (
+Type: BRACKET                Value: (
+Type: FLOATING POINT LITERAL Value: 12e3
+Type: OPERATOR               Value: -
+Type: IDENTIFIER             Value: e12
+Type: OPERATOR               Value: +
+Type: INTEGER LITERAL        Value: 3
+Type: OPERATOR               Value: ==
+Type: FLOATING POINT LITERAL Value: 10.5e+2
+Type: IDENTIFIER             Value: e12
+Type: SEPARATOR              Value: .
+Type: IDENTIFIER             Value: e5
+Type: OPERATOR               Value: <<=
+Type: IDENTIFIER             Value: e
+Type: OPERATOR               Value: *
+Type: OPERATOR               Value: /
+Type: IDENTIFIER             Value: e12
+Type: SEPARATOR              Value: .
+Type: IDENTIFIER             Value: eef
+Type: BRACKET                Value: )
+Type: OPERATOR               Value: ++
+Type: IDENTIFIER             Value: a
+Type: OPERATOR               Value: ++
+Type: OPERATOR               Value: +
+Type: IDENTIFIER             Value: e
+Type: OPERATOR               Value: +
+Lexical analysis error - Pos No: 267
+Type: IDENTIFIER             Value: f
+Type: OPERATOR               Value: --
+Type: SEPARATOR              Value: .
+Type: IDENTIFIER             Value: ef
+Type: BRACKET                Value: )
+Type: BRACKET                Value: }
+Lexical analysis error - Pos No: 293
+Type: OPERATOR               Value: *
+Type: OPERATOR               Value: /
+Lexical analysis error - Pos No: 298

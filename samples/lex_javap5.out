@@ -1,0 +1,114 @@
+Lexical atoms list
+File analysed: samples/javap5.java
+Time: Mon Apr 30 23:08:44 2018
+
+Type: IDENTIFIER             Value: xe
+Type: SEPARATOR              Value: ,
+Type: FLOATING POINT LITERAL Value: 12.34e-25
+Type: STRING LITERAL         Value: " ;;kjk 'a'"
+Type: CHARACTER LITERAL      Value: '"'
+Type: OPERATOR               Value: *
+Type: OPERATOR               Value: /
+Type: PREDEFINED TYPE        Value: int
+Type: KEYWORD                Value: public
+Type: KEYWORD                Value: static
+Type: PREDEFINED TYPE        Value: void
+Type: KEYWORD                Value: main
+Type: BRACKET                Value: (
+Type: PREDEFINED TYPE        Value: String
+Type: BRACKET                Value: [
+Type: BRACKET                Value: ]
+Type: IDENTIFIER             Value: args
+Type: BRACKET                Value: )
+Type: BRACKET                Value: {
+Type: PREDEFINED TYPE        Value: int
+Type: IDENTIFIER             Value: var1
+Type: SEPARATOR              Value: ,
+Type: IDENTIFIER             Value: e
+Type: BRACKET                Value: [
+Type: INTEGER LITERAL        Value: 100
+Type: BRACKET                Value: ]
+Type: BRACKET                Value: [
+Type: INTEGER LITERAL        Value: 20
+Type: BRACKET                Value: ]
+Type: SEPARATOR              Value: ;
+Type: KEYWORD                Value: if
+Type: BRACKET                Value: (
+Type: BRACKET                Value: (
+Type: IDENTIFIER             Value: e25
+Type: OPERATOR               Value: ++
+Type: OPERATOR               Value: +=
+Type: OPERATOR               Value: ++
+Type: IDENTIFIER             Value: e
+Type: OPERATOR               Value: -
+Type: INTEGER LITERAL        Value: 2
+Type: OPERATOR               Value: &&
+Type: INTEGER LITERAL        Value: 12
+Type: IDENTIFIER             Value: te25
+Type: OPERATOR               Value: *
+Type: OPERATOR               Value: *=
+Type: IDENTIFIER             Value: e
+Type: OPERATOR               Value: >>=
+Type: INTEGER LITERAL        Value: 5
+Type: BRACKET                Value: )
+Type: OPERATOR               Value: +
+Type: IDENTIFIER             Value: e25
+Type: SEPARATOR              Value: .
+Type: IDENTIFIER             Value: f12
+Type: SEPARATOR              Value: .
+Type: IDENTIFIER             Value: e
+Type: OPERATOR               Value: --
+Type: BRACKET                Value: )
+Type: BRACKET                Value: {
+Type: SEPARATOR              Value: ;
+Type: SEPARATOR              Value: ;
+Type: SEPARATOR              Value: ;
+Type: BRACKET                Value: }
+Type: FLOATING POINT LITERAL Value: 12.34
+Type: OPERATOR               Value: -
+Type: IDENTIFIER             Value: e
+Type: OPERATOR               Value: +
+Type: IDENTIFIER             Value: ee
+Type: SEPARATOR              Value: .
+Type: IDENTIFIER             Value: f
+Type: SEPARATOR              Value: ;
+Type: PREDEFINED TYPE        Value: double
+Type: IDENTIFIER             Value: var2
+Type: SEPARATOR              Value: ;
+Lexical analysis error - Pos No: 320
+Type: IDENTIFIER             Value: t
+Type: PREDEFINED TYPE        Value: char
+Type: IDENTIFIER             Value: s
+Type: BRACKET                Value: [
+Type: INTEGER LITERAL        Value: 10
+Type: BRACKET                Value: ]
+Type: SEPARATOR              Value: ;
+Type: OPERATOR               Value: +
+Type: IDENTIFIER             Value: var1
+Type: OPERATOR               Value: =
+Type: INTEGER LITERAL        Value: 0x1a0d
+Type: SEPARATOR              Value: ;
+Type: IDENTIFIER             Value: var2
+Type: OPERATOR               Value: =
+Type: FLOATING POINT LITERAL Value: 3.141592
+Type: SEPARATOR              Value: ;
+Type: IDENTIFIER             Value: strcpy
+Type: BRACKET                Value: (
+Type: IDENTIFIER             Value: s
+Type: SEPARATOR              Value: ,
+Type: STRING LITERAL         Value: "caractere"
+Type: BRACKET                Value: )
+Type: SEPARATOR              Value: ;
+Type: KEYWORD                Value: if
+Type: BRACKET                Value: (
+Type: IDENTIFIER             Value: var1
+Type: OPERATOR               Value: ==
+Type: INTEGER LITERAL        Value: 0
+Type: BRACKET                Value: )
+Type: KEYWORD                Value: return
+Type: INTEGER LITERAL        Value: 1
+Type: SEPARATOR              Value: ;
+Type: KEYWORD                Value: return
+Type: INTEGER LITERAL        Value: 0
+Type: SEPARATOR              Value: ;
+Type: BRACKET                Value: }

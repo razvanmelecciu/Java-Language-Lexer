@@ -1,0 +1,60 @@
+Lexical atoms list
+File analysed: samples/javap7.java
+Time: Mon Apr 30 23:30:39 2018
+
+Type: PREDEFINED TYPE        Value: int
+Type: IDENTIFIER             Value: e25
+Type: SEPARATOR              Value: ;
+Type: SEPARATOR              Value: ;
+Type: STRING LITERAL         Value: "  /*ah'h'*/"
+Type: CHARACTER LITERAL      Value: '"'
+Type: STRING LITERAL         Value: "'"
+Type: CHARACTER LITERAL      Value: '('
+Type: PREDEFINED TYPE        Value: void
+Type: KEYWORD                Value: main
+Type: BRACKET                Value: (
+Type: BRACKET                Value: )
+Type: BRACKET                Value: {
+Type: BRACKET                Value: }
+Type: BRACKET                Value: {
+Type: KEYWORD                Value: if
+Type: BRACKET                Value: (
+Type: BRACKET                Value: (
+Type: IDENTIFIER             Value: a
+Type: OPERATOR               Value: ++
+Type: OPERATOR               Value: +
+Type: FLOATING POINT LITERAL Value: 12e3
+Type: OPERATOR               Value: ==
+Type: IDENTIFIER             Value: e12
+Type: SEPARATOR              Value: .
+Type: IDENTIFIER             Value: e
+Type: OPERATOR               Value: +
+Type: INTEGER LITERAL        Value: 12
+Type: BRACKET                Value: )
+Type: OPERATOR               Value: *
+Type: OPERATOR               Value: /
+Type: IDENTIFIER             Value: e20
+Type: OPERATOR               Value: ++
+Type: OPERATOR               Value: +=
+Type: OPERATOR               Value: ++
+Type: FLOATING POINT LITERAL Value: 20e-3
+Type: OPERATOR               Value: <<=
+Type: INTEGER LITERAL        Value: 1
+Type: BRACKET                Value: )
+Type: IDENTIFIER             Value: a
+Type: OPERATOR               Value: *
+Type: OPERATOR               Value: *
+Type: IDENTIFIER             Value: p
+Type: OPERATOR               Value: *
+Type: OPERATOR               Value: /
+Type: OPERATOR               Value: ++
+Type: IDENTIFIER             Value: e
+Type: OPERATOR               Value: +
+Type: INTEGER LITERAL        Value: 3
+Type: SEPARATOR              Value: ;
+Type: KEYWORD                Value: return
+Type: INTEGER LITERAL        Value: 0
+Type: SEPARATOR              Value: ;
+Type: STRING LITERAL         Value: "jkhkjk      \""
+Type: IDENTIFIER             Value: lkjlkjlkjkl
+Lexical analysis error - Pos No: 240

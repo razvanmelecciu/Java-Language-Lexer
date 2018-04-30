@@ -20,9 +20,16 @@ public class TestClass implements Serializable
 	   double y = 3.14159e-10;  
 	   double z = .0;	   
 	   double u = .0e-1f, v = .0e1, w = .0e1f;
+     
+     /*
+     " This is a weird 
+     comment"*//*
+     */
 	   
        // this line will be ignored
        a / 5.123E+05F;
+       
+     a /= 5.123E+05F;  
 		
 	   double z = (x+++y)*=15.1E0F;
 		
