@@ -93,8 +93,8 @@ int main(int argc, char** argv)
 
     if (token_identifier == lex::UNRECOGNIZED_ERROR)
     {
-      std::cout << "Lexical analysis error - Pos No: \n";
-      output_file_stream << "Lexical analysis error - Pos No: " << language_scanner->GetStreamPosition() << std::endl;
+      std::cout << "Lexical analysis error - Line No: " << (language_scanner->GetCurrentLine() + 1) << " - Stream Pos No:" << language_scanner->GetStreamPosition() << std::endl;
+      output_file_stream << "Lexical analysis error - Line No: " << (language_scanner->GetCurrentLine() + 1) << " - Stream Pos No:" << language_scanner->GetStreamPosition() << std::endl;
     }
     else
     {

@@ -1,6 +1,6 @@
 Lexical atoms list
-File analysed: samples/javap4.java
-Time: Thu May 17 12:02:53 2018
+File analysed: ..\..\samples/javap4.java
+Time: Thu May 17 13:24:54 2018
 
 Type: IDENTIFIER             Value: e12
 Type: STRING LITERAL         Value: "*////////*"
@@ -10,7 +10,7 @@ Type: STRING LITERAL         Value: "/*lkjlkj'e'"
 Type: STRING LITERAL         Value: "/*"
 Type: OPERATOR               Value: *
 Type: OPERATOR               Value: /
-Lexical analysis error - Pos No: 104
+Lexical analysis error - Line No: 11 - Stream Pos No:104
 Type: OPERATOR               Value: /
 Type: OPERATOR               Value: *
 Type: OPERATOR               Value: *
@@ -67,10 +67,10 @@ Type: IDENTIFIER             Value: f
 Type: BRACKET                Value: (
 Type: BRACKET                Value: )
 Type: SEPARATOR              Value: ;
-Lexical analysis error - Pos No: 241
+Lexical analysis error - Line No: 20 - Stream Pos No:241
 Type: IDENTIFIER             Value: are
 Type: IDENTIFIER             Value: mere
-Lexical analysis error - Pos No: 251
+Lexical analysis error - Line No: 22 - Stream Pos No:251
 Type: STRING LITERAL         Value: "escaped ana\
 are\
 mere"

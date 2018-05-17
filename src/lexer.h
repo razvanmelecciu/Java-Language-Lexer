@@ -43,12 +43,15 @@ public :
 
   /// Get the file position
   std::size_t GetStreamPosition() const;
+  /// Get the current line in the file
+  std::size_t GetCurrentLine() const;
   /// Gets the next available token from the specified stream object (or a list of tokens if an err is encountered)
   Token<char_type> GetToken();
 
 private:
 
   std::size_t    crt_position_;                                           ///< the position in the stream (current character processed)
+  std::size_t    crt_line_;                                               ///< the current line in the file
   in_stream_type    crt_stream_;                                          ///< the input stream that will be tokenized
   std::unique_ptr<TokenStringTable<char_type> >    tokens_string_table_;  ///< the string table for the tokens identified
   std::unique_ptr<GrammarIdentifiers<char_type> >  grammar_symbols_;      ///< the table of keywords for the grammar
@@ -62,6 +65,11 @@ inline Lexer::~Lexer()
 inline std::size_t Lexer::GetStreamPosition() const
 {
   return crt_position_;
+}
+
+inline std::size_t Lexer::GetCurrentLine() const
+{
+  return crt_line_;
 }
 
 

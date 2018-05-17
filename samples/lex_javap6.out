@@ -1,6 +1,6 @@
 Lexical atoms list
-File analysed: samples/javap6.java
-Time: Thu May 17 12:03:23 2018
+File analysed: ..\..\samples/javap6.java
+Time: Thu May 17 13:24:54 2018
 
 Type: PREDEFINED TYPE        Value: int
 Type: IDENTIFIER             Value: a
@@ -44,14 +44,14 @@ Type: OPERATOR               Value: ++
 Type: OPERATOR               Value: +
 Type: IDENTIFIER             Value: e
 Type: OPERATOR               Value: +
-Lexical analysis error - Pos No: 267
+Lexical analysis error - Line No: 18 - Stream Pos No:267
 Type: IDENTIFIER             Value: f
 Type: OPERATOR               Value: --
 Type: SEPARATOR              Value: .
 Type: IDENTIFIER             Value: ef
 Type: BRACKET                Value: )
 Type: BRACKET                Value: }
-Lexical analysis error - Pos No: 293
+Lexical analysis error - Line No: 19 - Stream Pos No:293
 Type: OPERATOR               Value: *
 Type: OPERATOR               Value: /
-Lexical analysis error - Pos No: 298
+Lexical analysis error - Line No: 21 - Stream Pos No:298

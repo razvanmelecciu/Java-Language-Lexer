@@ -1,6 +1,6 @@
 Lexical atoms list
-File analysed: samples/javap5.java
-Time: Thu May 17 12:03:09 2018
+File analysed: ..\..\samples/javap5.java
+Time: Thu May 17 13:24:54 2018
 
 Type: IDENTIFIER             Value: xe
 Type: SEPARATOR              Value: ,
@@ -75,7 +75,7 @@ Type: SEPARATOR              Value: ;
 Type: PREDEFINED TYPE        Value: double
 Type: IDENTIFIER             Value: var2
 Type: SEPARATOR              Value: ;
-Lexical analysis error - Pos No: 320
+Lexical analysis error - Line No: 19 - Stream Pos No:320
 Type: IDENTIFIER             Value: t
 Type: PREDEFINED TYPE        Value: char
 Type: IDENTIFIER             Value: s

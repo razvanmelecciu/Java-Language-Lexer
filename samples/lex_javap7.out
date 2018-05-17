@@ -1,6 +1,6 @@
 Lexical atoms list
-File analysed: samples/javap7.java
-Time: Thu May 17 12:03:38 2018
+File analysed: ..\..\samples/javap7.java
+Time: Thu May 17 13:24:54 2018
 
 Type: PREDEFINED TYPE        Value: int
 Type: IDENTIFIER             Value: e25
@@ -57,4 +57,4 @@ Type: INTEGER LITERAL        Value: 0
 Type: SEPARATOR              Value: ;
 Type: STRING LITERAL         Value: "jkhkjk      \""
 Type: IDENTIFIER             Value: lkjlkjlkjkl
-Lexical analysis error - Pos No: 240
+Lexical analysis error - Line No: 16 - Stream Pos No:240

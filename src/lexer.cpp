@@ -5,7 +5,7 @@ LEXER_START
 
 Lexer::Lexer(const in_stream_type& input_stream,
              const GrammarIdentifiers<char_type>& grammar_identifiers) : crt_stream_(input_stream),
-                                                                         grammar_symbols_(new GrammarIdentifiers<char_type>), crt_position_(0),
+                                                                         grammar_symbols_(new GrammarIdentifiers<char_type>), crt_position_(0), crt_line_(0),
                                                                          tokens_string_table_(new TokenStringTable<char_type>)
 {
   const char letters_lwr[]       = "abcdefghijklmnopqrstuvwxyz";
@@ -62,14 +62,14 @@ Lexer::Lexer(const in_stream_type& input_stream,
   // - Transition Rules for Character literals
   AddTransition(0, '\'', 6);
   AddTransition(6, '\\', 7);
-  AddTransition(7, "\\\n\t\"\'", 5, 6);
+  AddTransition(7, "\\\n\t\"\'nt", 7, 6);
   AddTransition(6, all_characters, sizeof(all_characters) - 1, "\'\\", 2, 6);
   AddTransition(6, '\'', 8);
 
   // - Transition Rules for String literals
   AddTransition(0, '\"', 9);
   AddTransition(9, '\\', 10);
-  AddTransition(10, "\\\n\t\"\'", 5, 9);
+  AddTransition(10, "\\\n\t\"\'nt", 7, 9);
   AddTransition(9, all_characters, sizeof(all_characters) - 1, "\"\\", 2, 9);
   AddTransition(9, '\"', 11);
 
@@ -180,6 +180,9 @@ Token<Lexer::char_type> Lexer::GetToken()
   {
     ++crt_position_;
 
+    if (crt_character == '\n')
+      ++crt_line_;
+
     crt_transition.second = crt_character;
 
     my_crt_position = delta_states_mapping_qd_.find(crt_transition);    // find the current state from the crt_transition
@@ -199,6 +202,9 @@ Token<Lexer::char_type> Lexer::GetToken()
     }
     else                                                                // machine locked
     {
+      if (crt_character == '\n')
+        --crt_line_;
+
       crt_stream_.unget();                                              // put the last character back on the tape and break
       --crt_position_;
       break;
