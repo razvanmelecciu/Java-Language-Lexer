@@ -1,6 +1,6 @@
 Lexical atoms list
 File analysed: samples/javap4.java
-Time: Mon Apr 30 23:03:41 2018
+Time: Thu May 17 12:02:53 2018
 
 Type: IDENTIFIER             Value: e12
 Type: STRING LITERAL         Value: "*////////*"
@@ -71,6 +71,9 @@ Lexical analysis error - Pos No: 241
 Type: IDENTIFIER             Value: are
 Type: IDENTIFIER             Value: mere
 Lexical analysis error - Pos No: 251
+Type: STRING LITERAL         Value: "escaped ana\
+are\
+mere"
 Type: KEYWORD                Value: return
 Type: INTEGER LITERAL        Value: 0
 Type: SEPARATOR              Value: ;

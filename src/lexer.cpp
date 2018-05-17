@@ -62,14 +62,14 @@ Lexer::Lexer(const in_stream_type& input_stream,
   // - Transition Rules for Character literals
   AddTransition(0, '\'', 6);
   AddTransition(6, '\\', 7);
-  AddTransition(7, "\\nt\"\'", 5, 6);
+  AddTransition(7, "\\\n\t\"\'", 5, 6);
   AddTransition(6, all_characters, sizeof(all_characters) - 1, "\'\\", 2, 6);
   AddTransition(6, '\'', 8);
 
   // - Transition Rules for String literals
   AddTransition(0, '\"', 9);
   AddTransition(9, '\\', 10);
-  AddTransition(10, "\\nt\"\'", 5, 9);
+  AddTransition(10, "\\\n\t\"\'", 5, 9);
   AddTransition(9, all_characters, sizeof(all_characters) - 1, "\"\\", 2, 9);
   AddTransition(9, '\"', 11);
 

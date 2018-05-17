@@ -1,6 +1,6 @@
 Lexical atoms list
 File analysed: samples/javap3.java
-Time: Mon Apr 30 22:19:24 2018
+Time: Thu May 17 12:02:40 2018
 
 Type: KEYWORD                Value: package
 Type: IDENTIFIER             Value: primes
@@ -201,7 +201,7 @@ Type: PREDEFINED TYPE        Value: int
 Type: IDENTIFIER             Value: nLimit
 Type: OPERATOR               Value: =
 Type: IDENTIFIER             Value: crtNumber
-Type: IDENTIFIER             Value: /
+Type: OPERATOR               Value: /
 Type: INTEGER LITERAL        Value: 2
 Type: SEPARATOR              Value: ;
 Type: KEYWORD                Value: for

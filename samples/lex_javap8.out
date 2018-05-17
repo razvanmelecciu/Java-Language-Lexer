@@ -1,0 +1,19 @@
+Lexical atoms list
+File analysed: samples/javap8.java
+Time: Thu May 17 12:17:22 2018
+
+Type: STRING LITERAL         Value: "escaped ana\
+are\
+mere"
+Lexical analysis error - Pos No: 45
+Type: IDENTIFIER             Value: an
+Type: IDENTIFIER             Value: error
+Lexical analysis error - Pos No: 55
+Type: STRING LITERAL         Value: "escape \\n from this line"
+Lexical analysis error - Pos No: 105
+Type: IDENTIFIER             Value: n
+Type: IDENTIFIER             Value: here
+Type: IDENTIFIER             Value: and
+Type: IDENTIFIER             Value: it
+Lexical analysis error - Pos No: 127
+Type: STRING LITERAL         Value: "I'm escaping \\n here and it's correct"

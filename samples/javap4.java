@@ -21,6 +21,10 @@ public static void main(String[] args){
 are
 mere"
 
+"escaped ana\
+are\
+mere"
+
 return 0;
 }"as"
 
